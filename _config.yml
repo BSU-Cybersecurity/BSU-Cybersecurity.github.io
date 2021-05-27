@@ -11,27 +11,25 @@ baseurl: ''
 lang: en-US
 
 # Change to your timezone › http://www.timezoneconverter.com/cgi-bin/findzone/findzone
-timezone: Asia/Shanghai
+timezone: america/denver
 
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # --------------------------
-title: Chirpy                          # the main title
+title: Institute for Pervasive Cybersecurity                          # the main title
 
-tagline: Boise State University’s Institute for Pervasive Cybersecurity is a leader of innovative cybersecurity research and advancement in Idaho and the region   # it will display as the sub-title
+tagline: A leader of innovative cybersecurity research and advancement in Idaho and the region.   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
-  A minimal, portfolio, sidebar,
-  bootstrap Jekyll theme with responsive web design
-  and focuses on text presentation.
+  Boise State University’s Institute for Pervasive Cybersecurity is a leader of innovative cybersecurity research and advancement in Idaho and the region
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
-url: ''
+url: 'https://bsu-training-soc.github.io/'
 
 github:
   username: bsu-training-soc             # change to your github username
 
 twitter:
-  username: twitter            # change to your twitter username
+  username: boisestate            # change to your twitter username
 
 social:
   # Change to your full name.
@@ -40,7 +38,7 @@ social:
   email: cyberinstitute@boisestate.edu             # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://twitter.com/twitter      # change to your twitter homepage
+    - https://twitter.com/boisestate      # change to your twitter homepage
     - https://github.com/bsu-training-soc       # change to your github homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
