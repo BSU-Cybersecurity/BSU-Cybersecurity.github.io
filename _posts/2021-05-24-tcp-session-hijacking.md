@@ -2,8 +2,8 @@
 layout: post
 title: "TCP Session Hijacking Attack"
 date: 2021-05-24 09:00:00 -0500
-categories: Network-Security-&-Defense Attacks
-tags: network ssh tcp attack hijacking
+categories: [Network Security & Defense] [Attacks]
+tags: [network] [ssh] [tcp] [attack] [hijacking]
 ---
 ### Overview
 In this demo, we will hijack a telnet session and inject a malicious command.
