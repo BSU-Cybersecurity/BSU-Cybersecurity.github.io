@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Training Scenario One"
+title: "A Sample Demo"
 date: 2021-04-24 09:00:00 -0500
 categories: [Training-SOC, Demo]
 tags: [soc, training, scenario, demo]
