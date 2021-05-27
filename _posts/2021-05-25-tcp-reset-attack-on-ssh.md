@@ -2,8 +2,8 @@
 layout: post
 title: "TCP Reset Attack on an SSH Connection"
 date: 2021-05-25 09:00:00 -0500
-categories: [Network Security & Defense] [Attacks]
-tags: [network] [security] [ssh] [tcp] [attack]
+categories: [Network-Security-&-Defense, Attacks]
+tags: [network, security, ssh, tcp, attack]
 ---
 ### Overview
 In this demo, we will break an ssh connection between the victim and the ssh server.
