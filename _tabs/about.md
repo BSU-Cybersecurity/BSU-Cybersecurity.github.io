@@ -5,4 +5,10 @@ order: 4
 ---
 
 
-> **Note**: Add Markdown syntax content to file `_tabs/about.md` and it will show up on this page.
+# BSU'S Institute for Pervasive Cybersecurity
+
+> **Note:** For more information on the Institute for Pervasive Cybersecurity visit [the website][IPS]
+
+[IPS]: https://www.boisestate.edu/cybersecurity/
+
+
