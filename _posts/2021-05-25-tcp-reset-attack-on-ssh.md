@@ -2,7 +2,7 @@
 layout: post
 title: "TCP Reset Attack on an SSH Connection"
 date: 2021-05-25 09:00:00 -0500
-categories: Network_Security_&_Defense
+categories: Network-Security-&-Defense
 tags: network security ssh tcp attack
 ---
 
@@ -38,7 +38,7 @@ The command should be in this format:
 
 Run ```bash netwox 40 --help ``` for help information, like below.
 
-```` bash
+``` bash
 seed@VM:~$ netwox 40 --help
 Title: Spoof Ip4Tcp packet
 Usage: netwox 40 [-c uint32] [-e uint32] [-f|+f] [-g|+g] [-h|+h] [-i uint32] [-j uint32] [-k uint32] [-l ip] [-m ip] [-n ip4opts] [-o port] [-p port] [-q uint32] [-r uint32] [-s|+s] [-t|+t] [-u|+u] [-v|+v] [-w|+w] [-x|+x] [-y|+y] [-z|+z] [-A|+A] [-B|+B] [-C|+C] [-D|+D] [-E uint32] [-F uint32] [-G tcpopts] [-H mixed_data]
