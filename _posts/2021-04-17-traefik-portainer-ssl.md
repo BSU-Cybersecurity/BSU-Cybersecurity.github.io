@@ -1,21 +1,31 @@
 ---
 layout: post
-title: "Put Wildcard Certificates and SSL on EVERYTHING"
+title: "Open Stack Deploymet Guide"
 date: 2021-04-24 09:00:00 -0500
-categories: traefik
-tags: homelab pi-hole dns traefik portainer ssl self-hosted docker
+categories: OpenStack Cloud
+tags: openstack cloud deployment soc guide charms juju maas
 ---
 
-[![Put Wildcard Certificates and SSL on EVERYTHING](https://img.youtube.com/vi/liV3c9m_OX8/0.jpg)](https://www.youtube.com/watch?v=liV3c9m_OX8 "Put Wildcard Certificates and SSL on EVERYTHING")
 
-Today, we're going to use SSL for everything.  No more self-sign certs.  No more http.  No more hosting things on odd ports.  We're going all in with SSL for our internal services and our external services too.  We going to set up a reverse proxy using Traefik, Portainer, and use that to get wildcard certificates from Let's Encrypt. Join me and let's secure all the things.
+## Overview
+The purpose of this guide is to aid in the replication and maintenance of our OpenStack cloud by documenting the deployment process.
 
-[Watch Video](https://www.youtube.com/watch?v=liV3c9m_OX8)
+### Versions
+The software versions we use in our environment are as follows:
+* Ubuntu 20.04 LTS (Focal) for the MAAS server, Juju client, Juju controller, and all cloud nodes (including containers)
+* MAAS 2.9.2
+* Juju 2.7.6
+* OpenStack Wallaby
 
+### Hardware Layout (5 Nodes)
 
-## Docker Setup
+| Name          | Description   |
+| ------------- |---------------|
+| Client Machine | Machine used to SSH into the MAAS Controller, or MAAS nodes. |
+| MAAS Controller | This machine is not part of the OpenStack cloud - it simply manages the “metal” of the cloud by power-cycling machines and network booting and deploying OS images. |
+| JuJu Controller | One of the nodes managed by MAAS. Not to be confused with the JuJu application that lives within the MAAS Controller. The JuJu Controller orchestrates the commands given to the JuJu application and hosts the JuJu dashboard. |
+| node0-3 | These MAAS managed nodes (tagged “compute”) are where the OpenStack Charm containers get deployed to. These nodes form the actual OpenStack cloud. |
 
-### Install Docker
 
 ```bash
  sudo apt-get update
@@ -69,7 +79,7 @@ chmod 600 acme.json
 touch traefik.yml
 ```
 
-`traefik.config` can be found [here](https://github.com/techno-tim/techno-tim.github.io/tree/master/reference_files/traefik-portainer-ssl/traefik) 
+`traefik.config` can be found [here](https://github.com/techno-tim/techno-tim.github.io/tree/master/reference_files/traefik-portainer-ssl/traefik)
 
 create docker network
 
@@ -81,7 +91,7 @@ docker network create proxy
 touch docker-compose.yml
 ```
 
-`docker-compose.yml` can be found [here](https://github.com/techno-tim/techno-tim.github.io/tree/master/reference_files/traefik-portainer-ssl/traefik) 
+`docker-compose.yml` can be found [here](https://github.com/techno-tim/techno-tim.github.io/tree/master/reference_files/traefik-portainer-ssl/traefik)
 
 ```bash
 cd data
@@ -101,7 +111,7 @@ touch docker-compose.yml
 mkdir data
 ```
 
-`docker-compose.yml` can be found [here](https://github.com/techno-tim/techno-tim.github.io/tree/master/reference_files/traefik-portainer-ssl/portainer) 
+`docker-compose.yml` can be found [here](https://github.com/techno-tim/techno-tim.github.io/tree/master/reference_files/traefik-portainer-ssl/portainer)
 
 
 ### Generate Basic Auth Password
@@ -129,7 +139,7 @@ cd traefik/data
 nano config.yml
 ```
 
-`config.yml` [here](https://github.com/techno-tim/techno-tim.github.io/tree/master/reference_files/traefik-portainer-ssl/traefik) 
+`config.yml` [here](https://github.com/techno-tim/techno-tim.github.io/tree/master/reference_files/traefik-portainer-ssl/traefik)
 
 ```bash
 docker-compose up -d --force-recreate
