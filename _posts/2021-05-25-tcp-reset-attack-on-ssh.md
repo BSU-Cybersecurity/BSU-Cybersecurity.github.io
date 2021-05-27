@@ -17,7 +17,7 @@ For this attack you will need 3 Linux VMs.
 The 3 VMs reside in the same network.
 
 ### Attack
-The attacker, mimicking the server, only needs to send one RST packet to perform the attack. The requirement is, the attack needs to use "netwox 40" to perform this attack.
+The attacker, mimicking the server, only needs to send one RST packet to perform the attack. The requirement is, the attack needs to use ```netwox 40``` to perform this attack.
 
 The command should be in this format:
 
