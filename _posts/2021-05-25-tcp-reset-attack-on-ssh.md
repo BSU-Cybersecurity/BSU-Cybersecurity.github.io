@@ -6,7 +6,7 @@ categories: [Network-Security-&-Defense, Attacks]
 tags: [network, security, ssh, tcp, attack]
 ---
 ### Overview
-In this demo, we will break an ssh connection between the victim and the ssh server.
+In this demo, we will break an SSH connection between the victim and the ssh server.
 
 ### Setup
 For this attack you will need 3 Linux VMs.

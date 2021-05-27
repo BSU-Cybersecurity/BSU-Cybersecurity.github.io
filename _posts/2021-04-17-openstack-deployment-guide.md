@@ -45,6 +45,7 @@ With the JuJu Controller deployed, the OpenStack installation can begin. This (l
 
 ## Hardware
 ### Minimum Requirements
+
 | Name | CPUs (cores) | RAM (GB) | Storage | NIC's |
 | ------ | ------ | ------ | ------ | ------ |
 | MAAS Controller | 2| 8| 1x 40GB| 1 |
