@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "DNS Rebinding Attack"
-date: 2021-05-25 09:00:00 -0500
+date: 2021-03-13 09:00:00 -0500
 categories: [Network-Security-&-Defense, Attacks]
 tags: [network, security, dns, rebinding, attack]
 ---
