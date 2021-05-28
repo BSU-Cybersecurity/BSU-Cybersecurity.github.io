@@ -23,10 +23,10 @@ description: >-                        # used by seo meta and the atom feed
   Boise State University’s Institute for Pervasive Cybersecurity is a leader of innovative cybersecurity research and advancement in Idaho and the region
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
-url: 'https://bsu-training-soc.github.io/'
+url: 'https://BSU-Cybersecurity.github.io/'
 
 github:
-  username: bsu-training-soc             # change to your github username
+  username: bsu-cybersecurity            # change to your github username
 
 twitter:
   username: boisestate            # change to your twitter username
