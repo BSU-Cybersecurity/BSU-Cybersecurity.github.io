@@ -4,6 +4,8 @@ title: "Sample of Markdown Supported"
 date: 2020-01-01 09:00:00 -0500
 categories:
 tags: [markdown]
+math: true
+mermaid: true
 ---
 ## Titles
 ---
