@@ -8,8 +8,7 @@ tags: [soc, training, scenario]
 
 
 ## Overview
-The purpose of this guide is to aid in the replication and maintenance of our OpenStack cloud by documenting the deployment process.
-
+THis is a guide about a scenario that we haven't written.
 ### Versions
 The software versions we use in our environment are as follows:
 * Ubuntu 20.04 LTS (Focal) for the MAAS server, Juju client, Juju controller, and all cloud nodes (including containers)
