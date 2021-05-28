@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "OpenStack Cloud Deployment Guide"
-date: 2021-04-24 09:00:00 -0500
+date: 2021-02-24 09:00:00 -0500
 categories: [Training-SOC, OpenStack]
 tags: [openstack, cloud, deployment, soc, guide, charms, juju, maas]
 ---
