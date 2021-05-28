@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Sample of Markdown Supported"
-date: 2021-03-13 09:00:00 -0500
+date: 2020-01-01 09:00:00 -0500
 categories:
 tags: [markdown]
 ---
