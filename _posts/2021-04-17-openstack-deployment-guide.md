@@ -1,12 +1,10 @@
 ---
 layout: post
-title: "Open Stack Deploymet Guide"
+title: "OpenStack Cloud Deployment Guide"
 date: 2021-04-24 09:00:00 -0500
 categories: [Training-SOC, OpenStack]
 tags: [openstack, cloud, deployment, soc, guide, charms, juju, maas]
 ---
-
-
 ## Overview
 The purpose of this guide is to aid in the replication and maintenance of our OpenStack cloud by documenting the deployment process.
 
