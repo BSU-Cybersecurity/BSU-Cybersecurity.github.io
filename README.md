@@ -29,7 +29,7 @@ tags: [bee]
 
 ## Table of Contents
 
-By default, the **T**able **o**f **C**ontents (TOC) is displayed on the right panel of the post. If you want to turn it off globally, go to `_config.yml` and set the value of variable `toc` to `false`. If you want to turn off TOC for specific post, add the following to post's [Front Matter](https://jekyllrb.com/docs/front-matter/):
+By default, the **T**able **o**f **C**ontents (TOC) is displayed on the right panel of the post.
 
 ```yaml
 ---
@@ -39,7 +39,7 @@ toc: false
 
 ## Comments
 
-Similar to TOC, the [Disqus](https://disqus.com/) comments is loaded by default in each post, and the global switch is defined by variable `comments` in file `_config.yml` . If you want to close the comment for specific post, add the following to the **Front Matter** of the post:
+Similar to TOC, if you want to close the comment for specific post, add the following to the **Front Matter** of the post:
 
 ```yaml
 ---
@@ -132,29 +132,6 @@ The screenshots of the program window can be considered to show the shadow effec
 
 ```markdown
 ![Desktop View](/assets/img/sample/mockup.png){: .shadow}
-```
-
-
-### CDN URL
-
-If you host the images on the CDN, you can save the time of repeatedly writing the CDN url by assigning the variable `img_cdn` of `_config.yml` file:
-
-```yaml
-img_cdn: https://cdn.com
-```
-
-Once `img_cdn` is assigned, the CDN url will be added to the path of all images (images of site avatar and posts) starting with `/`.
-
-For instance, when using images:
-
-```markdown
-![The flower](/path/to/flower.png)
-```
-
-The parsing result will automatically add the CDN prefix `https://cdn.com` before the image path:
-
-```html
-<img src="https://cdn.com/path/to/flower.png" alt="The flower">
 ```
 
 ## Pinned Posts
