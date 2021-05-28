@@ -1,11 +1,11 @@
 ---
-title: About
+title: Home
 icon: fas fa-info
-order: 4
+order: 0
 ---
 
 
-# BSU's Institute for Pervasive Cybersecurity
+# BSU'S Institute for Pervasive Cybersecurity
 
 > **Note:** For more information on the Institute for Pervasive Cybersecurity visit [the website][IPS]
 
