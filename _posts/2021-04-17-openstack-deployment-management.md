@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "OpenStack Deployment - Intro"
-date: 2021-02-01 09:00:00 -0500
+title: "OpenStack Deployment - Management"
+date: 2021-02-08 09:00:00 -0500
 categories: [Training-SOC, OpenStack]
 tags: [openstack, cloud, deployment, soc, guide, charms, juju, maas]
 ---
