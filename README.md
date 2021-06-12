@@ -1,3 +1,5 @@
+[![Automatic build](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/actions/workflows/pages-deploy.yml/badge.svg)](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/actions/workflows/pages-deploy.yml)
+
 # Creating a Post
 ## Naming and Path
 
