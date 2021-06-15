@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Test Scenario Guide"
+title: "Training SOC - Test Scenario Guide"
 date: 2021-03-17 09:00:00 -0500
 categories: [Training-SOC, Scenario]
 tags: [soc, guide, scenario]
