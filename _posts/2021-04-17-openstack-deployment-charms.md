@@ -41,6 +41,7 @@ watch -n 1 -c juju status --color
 
 ## Ceph-OSD
 The first charm we will deploy is the Ceph-osd charm or “object storage device”. This is done by first creating a YAML file called **ceph-osd.yaml** which specifies the charm’s configurations, where “**/dev/sdb**” is the path to the
+
 ```YAML
 ceph-osd:
   osd-devices: /dev/sdb
@@ -116,7 +117,6 @@ sudo snap install vault
 Run ```juju status``` to obtain the IP of the vault container (the hint is that the port specified on ```juju status``` is 8200).
 ```bash
 export VAULT_ADDR="http://10.0.0.126:8200"
-
 ```
 
 ```bash
