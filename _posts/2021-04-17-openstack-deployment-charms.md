@@ -468,7 +468,9 @@ juju run --unit keystone/leader leader-get admin_passwd
 ```
 
 ### Make Accessing the Openstack Dashboard easier
-It is sometimes helpful to have aliases for commonly used commands. To create an alias that outputs the URL and password of the OpenStack Dashbaord, use your favorite text editor to edit the ```.bashrc``` file.
+It is sometimes helpful to have aliases for commonly used commands.
+
+To create an alias that outputs the URL and password of the OpenStack Dashbaord, use your favorite text editor to edit the ```.bashrc``` file.
 
 ```bash
 vim ~/.bashrc
