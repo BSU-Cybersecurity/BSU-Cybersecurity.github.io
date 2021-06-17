@@ -211,7 +211,7 @@ juju add-relation mysql-innodb-cluster:certificates vault:certificates
 ## Neutron networking
 Create a file called **neutron.yaml** with the YAML below.
 
-> **Note:** The NIC in this case is called eth1 (line2) - but more than likely this will be different for our environment.
+> **Note:** The NIC in this case is called eth1 (line2 below) - but more than likely this will be different for our environment.
 
 > **Tip:** To find out the name of the NIC, go in the MAAS web GUI and click on 'machines' at the top. Now click on one of the 'compute' nodes and click on 'Networking', this will give you a list of the NIC ports and what they are called. There is one NIC that has a green checkmark saying it is used for PXE booting. We need one that says 'Unconfigured'. If this 'unconfigured' NIC is called "eno2", you would replace "eth1" on the YAML below with "eno2" (Example: ```bridge-interface-mappings: br-ex:eno2```).
 
