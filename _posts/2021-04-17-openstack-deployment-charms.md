@@ -483,7 +483,7 @@ With the ```.bashrc``` file open, scroll down to where you see aliases listed. H
 ```bash
 alias openstack-ip='juju status --format=yaml openstack-dashboard | grep public-address | awk '"'"'{print $2}'"'"' | head -1'
 alias openstack-pass='juju run --unit keystone/leader leader-get admin_passwd'
-alias openstack-login='openstackip=$(openstack-ip) && echo "Dashboard URL: https://"$openstackip"/horizon" && echo "Username: admin" && openstackpass=$(openstack-pass) && echo $openstackpass && echo "Domain: admin_domain"'
+alias openstack-login='openstackip=$(openstack-ip) && echo "Dashboard URL: https://"$openstackip"/horizon" && echo "Username: admin" && openstackpass=$(openstack-pass) && echo "Passowrd: "$openstackpass && echo "Domain: admin_domain"'
 ```
 
 Now save your edits, and exit the file. To make the new changes effective source the ```.bashrc``` file.
