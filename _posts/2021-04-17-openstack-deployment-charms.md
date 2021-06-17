@@ -78,6 +78,7 @@ Machine  State    DNS            Inst id  Series  AZ       Message
 
 ## Nova Compute
 With the Ceph-osd installed, the Nova Compute charm is next on the list of deployment. The process is very similar across charms. First, create the file **nova-compute.yaml**.
+
 ```yaml
 nova-compute:
   config-flags: default_ephemeral_format=ext4
@@ -112,6 +113,7 @@ juju add-relation vault-mysql-router:shared-db vault:shared-db
 
 ### Unseal Vault
 To unseal the Vault container, first install the vault agent application on the MAAS Controller.
+
 ```bash
 sudo snap install vault
 ```
@@ -122,11 +124,14 @@ With the Vault application installed, run ```juju status``` to obtain the IP of 
 ```bash
 export VAULT_ADDR="http://10.0.0.126:8200"
 ```
+
 Now ask the vault for 5 keys.
+
 ```bash
 vault operator init -key-shares=5 -key-threshold=3
 ```
 Sample output:
+
 ```bash
 Unseal Key 1: XONSc5Ku8HJu+ix/zbzWhMvDTiPpwWX0W1X/e/J1Xixv
 Unseal Key 2: J/fQCPvDeMFJT3WprfPy17gwvyPxcvf+GV751fTHUoN/
@@ -157,13 +162,16 @@ vault operator unseal +bRfX5HMISegsODqNZxvNcupQp/kYQuhsQ2XA+GamjY4
 vault operator unseal FMRTPJwzykgXFQOl2XTupw2lfgLOXbbIep9wgi9jQ2ls
 vault operator unseal 7rrxiIVQQWbDTJPMsqrZDKftD6JxJi6vFOlyC0KSabDB
 ```
+
 Now grab the token from line 7 of the sample output above, and enter these commands:
+
 ```bash
 export VAULT_TOKEN=s.ezlJjFw8ZDZO6KbkAkm605Qv
 vault token create -ttl=10m
 ```
 
 Sample output:
+
 ```bash
 Key                  Value
 ---                  -----
@@ -177,12 +185,14 @@ policies             ["root"]
 ```
 
 Now grab the last token from line 3 of the sample output above, and enter this command:
+
 ```bash
 juju run-action --wait vault/leader authorize-charm token=s.QMhaOED3UGQ4MeH3fmGOpNED
 ```
 
 ### Generate the Certificate Authority (CA)
 The last step to unseal the vault is to generate a CA using the command below.
+
 ```bash
 juju run-action --wait vault/leader generate-root-ca
 ```
@@ -192,6 +202,7 @@ At this point the Vault is ready, and you can continue with the charm deployment
 ```bash
 juju add-relation mysql-innodb-cluster:certificates vault:certificates
 ```
+
 ## Neutron networking
 Create a file called **neutron.yaml** with the YAML below.
 
