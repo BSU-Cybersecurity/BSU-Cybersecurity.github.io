@@ -118,7 +118,7 @@ To unseal the Vault container, first install the vault agent application on the 
 sudo snap install vault
 ```
 With the Vault application installed, run ```juju status``` to obtain the IP of the vault container.
-> **Hint:** The port specified on ```juju status``` for this IP is 8200. This step is to tell the Vault application knows where to reach the Vault container.
+> **Hint:** The port specified on ```juju status``` for this IP is 8200. This step is to tell the Vault application where to reach the Vault container.
 
 
 ```bash
