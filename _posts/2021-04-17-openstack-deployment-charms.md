@@ -40,7 +40,7 @@ watch -n 1 -c juju status --color
 ```
 
 ## Ceph-OSD
-The first charm we will deploy is the Ceph-osd charm or “object storage device”. This is done by first creating a YAML file called **ceph-osd.yaml** which specifies the charm’s configurations, where “**/dev/sdb**” is the path to the
+The first charm we will deploy is the Ceph-osd charm or “object storage device”. This is done by first creating a YAML file called **ceph-osd.yaml** which specifies the charm’s configurations, where “**/dev/sdb**” is the path to the ```sdb```drive.
 
 ```YAML
 ceph-osd:
