@@ -42,4 +42,4 @@ With the JuJu Controller deployed, the OpenStack installation can begin. This (l
 
 
 
-## [Next Section: Hardware](https://bsu-cybersecurity.github.io/posts/openstack-deployment-hardware/)
+# [Next Section: Hardware](https://bsu-cybersecurity.github.io/posts/openstack-deployment-hardware/)

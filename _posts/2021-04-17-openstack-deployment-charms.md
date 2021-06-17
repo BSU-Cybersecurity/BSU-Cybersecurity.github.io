@@ -6,5 +6,5 @@ categories: [Training-SOC, OpenStack]
 tags: [openstack, cloud, deployment, soc, guide, charms, juju, maas]
 ---
 
-## [Next Section: Configuration](https://bsu-cybersecurity.github.io/posts/openstack-deployment-configuration/)
+# [Next Section: Configuration](https://bsu-cybersecurity.github.io/posts/openstack-deployment-configuration/)
 

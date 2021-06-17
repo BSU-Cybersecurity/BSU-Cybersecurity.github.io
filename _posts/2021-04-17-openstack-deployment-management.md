@@ -6,5 +6,5 @@ categories: [Training-SOC, OpenStack]
 tags: [openstack, cloud, deployment, soc, guide, charms, juju, maas]
 ---
 
-## [Next Section: Debugging](https://bsu-cybersecurity.github.io/posts/openstack-deployment-debugging/)
+# [Next Section: Debugging](https://bsu-cybersecurity.github.io/posts/openstack-deployment-debugging/)
 

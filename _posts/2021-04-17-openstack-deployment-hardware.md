@@ -80,4 +80,4 @@ Now press the ESC key to return to the Life Cycle Manager main page and you will
 Now press the ESC key to return to the Life Cycle Manager main page and you will be asked to reboot. At this point you are done setting up PXE boot settings.
 
 
-## [Next Section: Network](https://bsu-cybersecurity.github.io/posts/openstack-deployment-network/)
+# [Next Section: Network](https://bsu-cybersecurity.github.io/posts/openstack-deployment-network/)

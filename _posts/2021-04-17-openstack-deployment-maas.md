@@ -152,4 +152,4 @@ To enable DHCP click on the “Controllers” tab at the top, and select the con
 
 
 
-## [Next Section: JuJu](https://bsu-cybersecurity.github.io/posts/openstack-deployment-juju/)
+# [Next Section: JuJu](https://bsu-cybersecurity.github.io/posts/openstack-deployment-juju/)
