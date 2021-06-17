@@ -187,7 +187,9 @@ identity_policies    []
 policies             ["root"]
 ```
 
-Now grab the last token from line 3 of the sample output above, and enter this command:
+Now grab the last token (line 3 of the sample output above), and enter this command:
+
+> **Note:** Replace the token below ```s.QMhaOED3UGQ4MeH3fmGOpNED``` with your own.
 
 ```bash
 juju run-action --wait vault/leader authorize-charm token=s.QMhaOED3UGQ4MeH3fmGOpNED
