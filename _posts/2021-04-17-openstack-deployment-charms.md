@@ -163,7 +163,10 @@ vault operator unseal FMRTPJwzykgXFQOl2XTupw2lfgLOXbbIep9wgi9jQ2ls
 vault operator unseal 7rrxiIVQQWbDTJPMsqrZDKftD6JxJi6vFOlyC0KSabDB
 ```
 
-Now grab the token from line 7 of the sample output above, and enter these commands:
+Now grab the token (line 7 in the sample output above), and enter these commands:
+
+> **Note:** Replace the token below ```s.ezlJjFw8ZDZO6KbkAkm605Qv``` with your own.
+
 
 ```bash
 export VAULT_TOKEN=s.ezlJjFw8ZDZO6KbkAkm605Qv
@@ -290,7 +293,7 @@ juju add-relation rabbitmq-server:amqp nova-compute:amqp
 ```
 
 ```bash
-
+[SAMPLE JUJU STATUS OUTPUT GOES HERE]
 ```
 ## Nova cloud controller
 Create a file called **nova-cloud-controller.yaml** with the YAML below.
@@ -377,7 +380,7 @@ juju add-relation glance:identity-service keystone:identity-service
 juju add-relation glance:certificates vault:certificates
 ```
 ```bash
-
+[SAMPLE JUJU STATUS OUTPUT GOES HERE]
 ```
 
 ## Ceph monitor
@@ -448,10 +451,38 @@ juju add-relation ceph-osd:juju-info ntp:juju-info
 ```
 
 ## Final results and dashboard access
-At this point you should have a fully deployed OpenStack
+Once the ```juju status``` output has settled it should look something like this:
+```bash
+[SAMPLE JUJU STATUS OUTPUT GOES HERE]
+```
+
+At this point you should have a fully deployed OpenStack. To access the OpenStack Dashboard enter the following command:
 ```bash
 juju status --format=yaml openstack-dashboard | grep public-address | awk '{print $2}' | head -1
 ```
+### Make Accessing the Openstack Dashboard easier
+It is sometimes helpful to have aliases for commonly used commands. To create an alias that outputs the URL and password of the OpenStack Dashbaord, use your favorite text editor to edit the ```.bashrc``` file.
+
+```bash
+vim ~/.bashrc
+```
+
+With the ```.bashrc``` file open, scroll down to where you see aliases listed. Here enter the following aliases in new lines:
+
+```bash
+alias openstack-ip='juju status --format=yaml openstack-dashboard | grep public-address | awk '"'"'{print $2}'"'"' | head -1'
+alias openstack-pass='juju run --unit keystone/leader leader-get admin_passwd'
+alias openstack-login='openstackip=$(openstack-ip) && echo "Dashboard URL: https://"$openstackip"/horizon" && echo "Username: admin" && openstackpass=$(openstack-pass) && echo $openstackpass && echo "Domain: admin_domain"'
+```
+
+Now save your edits, and exit the file. To make the new changes effective source the ```.bashrc``` file.
+```bash
+source ~/.bashrc
+```
+
+If you followed the steps correctly the command ```openstack-login``` should output your Dashboard URL, username and password
+
+
 ```bash
 juju run --unit keystone/leader leader-get admin_passwd
 ```
