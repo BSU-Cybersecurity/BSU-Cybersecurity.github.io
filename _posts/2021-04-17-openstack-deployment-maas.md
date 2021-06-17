@@ -10,7 +10,8 @@ One server that isn’t part of the OpenStack cluster (but is on the same networ
 ## Installing the Operating System
 Though most Debian Linux distributions would work, our MAAS Controller runs Ubuntu Server Focal 20.04 LTS.
 ## A Few Pointers
-* If DHCP is being served by MAAS and there are no other DHCP servers, then Ubuntu won’t be able to automatically configure the network during the installation process - it will need to be configured manually (see below). Alternatively, you may decide to enable serving DHCP on the router during this process, and then disable it once the MAAS application is installed and configured.
+* For troubleshooting purposes, it is advisable to manually assign an IP during the installation of
+  Ubuntu rather than automatically using DHCP. The reason why, is if the DHCP service within MAAS stops working, the MAAS controller won't have an IP, and you won't be able to SSH into it - and that brings up the next point below.
 
 ![Shadow Avatar](https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/posts/20190808/window.png){: .shadow width="90%" }
 
@@ -18,36 +19,36 @@ Though most Debian Linux distributions would work, our MAAS Controller runs Ubun
 
 * It is infinitely easier to manage the MAAS Controller over SSH, however, Ubuntu Server comes out of the box with UFW, so SSH needs to be allowed through the firewall. To allow ssh, input the following command.
 ```bash
-$ sudo ufw allow ssh
+sudo ufw allow ssh
 ```
 
 # Installation
 With Ubuntu configured on the MAAS Controller, the MAAS application needs to be installed using the Snap Store by inputting this command:
 
 ```bash
-$ sudo snap install --channel=2.9/stable maas
+sudo snap install --channel=2.9/stable maas
 ```
 MAAS needs a database backend, which can be installed using the following commands.
 
 ```bash
-$ sudo apt update -y
-$ sudo apt install -y postgresql
+sudo apt update -y
+sudo apt install -y postgresql
 ```
 
 A user for the database then needs to be created. Input the following command - the $VARIABLE’s need to be replaced appropriately and documented for future reference.
 ```bash
-$ sudo -u postgres psql -c "CREATE USER \"$MAAS_DBUSER\" WITH ENCRYPTED PASSWORD '$MAAS_DBPASS'"
+sudo -u postgres psql -c "CREATE USER \"$MAAS_DBUSER\" WITH ENCRYPTED PASSWORD '$MAAS_DBPASS'"
 ```
 Then the database needs to be created with the user created above. Run the following command replacing the $VARIABLE’s.
 
 ```bash
-$ sudo -u postgres createdb -O "$MAAS_DBUSER" "$MAAS_DBNAME"
+sudo -u postgres createdb -O "$MAAS_DBUSER" "$MAAS_DBNAME"
 ```
 A postgres config file now needs to be edited to reflect the new database user and database name. At the time of writing this guide, the latest stable version of postgres is version 12, so the following command will use vim to open the file in this directory  - `````/etc/postgresql/12/main/pg_hba.conf````` using root privilege. In the event this doesn’t work, manually navigate to this directory, you likely have a different version of postgres installed so the ‘12’ in the directory may be a different number.
 
 
 ```bash
-$ sudo vim /etc/postgresql/12/main/pg_hba.conf
+sudo vim /etc/postgresql/12/main/pg_hba.conf
 ```
 
 With the ```pg_hba.conf``` file open, add the following line at the end, and save the file.
@@ -61,7 +62,7 @@ Now it is time to initialize the MAAS application using the command below. Repla
 
 
 ```bash
-$ sudo maas init region+rack --database-uri "postgres://$MAAS_DBUSER:$MAAS_DBPASS@$HOSTNAME/$MAAS_DBNAME"
+sudo maas init region+rack --database-uri "postgres://$MAAS_DBUSER:$MAAS_DBPASS@$HOSTNAME/$MAAS_DBNAME"
 ```
 
 Note that the IP of the web GUI is printed out on the terminal during this step. Press enter unless you want to make any changes. If you specified that the ```$HOSTNAME``` was ```localhost```, the IP of the web GUI is the same as that of the MAAS Controller machine.
@@ -69,7 +70,7 @@ Note that the IP of the web GUI is printed out on the terminal during this step.
 Finally, a MAAS admin user needs to be created.
 
 ```bash
-$ sudo maas createadmin
+sudo maas createadmin
 ```
 
 You will be prompted to input user credentials - these will be used to log into the web GUI so make sure to document these for future use.
@@ -79,7 +80,7 @@ Now check the status of the MAAS application using the following command
 
 
 ```bash
-$ sudo maas status
+sudo maas status
 ```
 
 The output should be similar to the following.
@@ -116,18 +117,18 @@ Log in to the MAAS web GUI and follow the set-up process. The steps are mostly s
 In the next step of the initial set-up, you will be asked to input an ssh-key so that you can ssh into the machines MAAS deploys using RSA key authentication instead of a password. Grab the machine you intend to use to SSH into the MAAS-deployed nodes and retrieve the RSA key pair of that machine. If you are on a Linux machine and you have already generated SSH keys, the key can usually be retrieved from the default directory by entering the following command.
 
 ```bash
-$ sudo cat /home/$USERNAME/.ssh/id_rsa.pub
+sudo cat /home/$USERNAME/.ssh/id_rsa.pub
 ```
 
 More than likely though, you will need to generate your “private/public key pair”. To generate the RSA key pair enter the following command. Follow the shell prompts and take note of the directory and passphrase (if any) used.
 
 ```bash
-$ ssh-keygen -t rsa -b 4096
+ssh-keygen -t rsa -b 4096
 ```
 If you saved the RSA key pair to the default directory you will be able to retrieve your public key with the following command.
 
 ```bash
-$ sudo cat /home/$USERNAME/.ssh/id_rsa.pub
+sudo cat /home/$USERNAME/.ssh/id_rsa.pub
 ```
 The output of this will look something like this:
 
@@ -151,4 +152,4 @@ To enable DHCP click on the “Controllers” tab at the top, and select the con
 
 
 
-Once the MAAS controller is ready, it is time to [install JuJu.](https://bsu-cybersecurity.github.io/posts/openstack-deployment-juju/)
+## [Next Section: JuJu](https://bsu-cybersecurity.github.io/posts/openstack-deployment-juju/)

@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "OpenStack Deployment - 2. Hardware"
-date: 2021-02-02 09:00:00 -0500
+title: "OpenStack Deployment - Hardware"
+date: 2021-02-29 09:00:00 -0500
 categories: [Training-SOC, OpenStack]
 tags: [openstack, cloud, deployment, soc, guide, charms, juju, maas]
 ---
@@ -80,4 +80,4 @@ Now press the ESC key to return to the Life Cycle Manager main page and you will
 Now press the ESC key to return to the Life Cycle Manager main page and you will be asked to reboot. At this point you are done setting up PXE boot settings.
 
 
-Now that the server hardware is set up, [continue to Network Configuration.](https://bsu-cybersecurity.github.io/posts/openstack-deployment-network/)
+## [Next Section: Network](https://bsu-cybersecurity.github.io/posts/openstack-deployment-network/)

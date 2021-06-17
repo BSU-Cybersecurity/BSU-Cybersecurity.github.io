@@ -19,4 +19,4 @@ Alternatively, we can let the router serve DHCP. The main consideration here (as
 
 
 
-Now that the Network is taken care of, it is time to [deploy MAAS.](https://bsu-cybersecurity.github.io/posts/openstack-deployment-maas/)
+## [Next Section: MAAS](https://bsu-cybersecurity.github.io/posts/openstack-deployment-maas/)

@@ -308,3 +308,4 @@ Then, deploy the Nova Compute charm using the file nova-compute.yaml configurati
 ```bash
 $ juju deploy -n 3 --to 1,2,3 --config nova-compute.yaml nova-compute
 ```
+## [Next Section: Charms](https://bsu-cybersecurity.github.io/posts/openstack-deployment-network/)

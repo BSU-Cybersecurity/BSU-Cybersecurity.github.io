@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "OpenStack Deployment - 1. Overview"
-date: 2021-02-01 09:00:00 -0500
+title: "OpenStack Deployment - Overview"
+date: 2021-02-01 30:00:00 -0500
 categories: [Training-SOC, OpenStack]
 tags: [openstack, cloud, deployment, soc, guide, charms, juju, maas]
 ---
@@ -42,4 +42,4 @@ With the JuJu Controller deployed, the OpenStack installation can begin. This (l
 
 
 
-With the introduction out of the way, [continue to Hardware Configuration.](https://bsu-cybersecurity.github.io/posts/openstack-deployment-hardware/)
+## [Next Section: Hardware](https://bsu-cybersecurity.github.io/posts/openstack-deployment-hardware/)
