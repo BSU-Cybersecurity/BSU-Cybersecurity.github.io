@@ -456,10 +456,17 @@ Once the ```juju status``` output has settled it should look something like this
 [SAMPLE JUJU STATUS OUTPUT GOES HERE]
 ```
 
-At this point you should have a fully deployed OpenStack. To access the OpenStack Dashboard enter the following command:
+At this point you should have a fully deployed OpenStack. To retrieve the OpenStack Dashboard IP enter the following command:
 ```bash
 juju status --format=yaml openstack-dashboard | grep public-address | awk '{print $2}' | head -1
 ```
+
+And to retrieve the password use:
+
+```bash
+juju run --unit keystone/leader leader-get admin_passwd
+```
+
 ### Make Accessing the Openstack Dashboard easier
 It is sometimes helpful to have aliases for commonly used commands. To create an alias that outputs the URL and password of the OpenStack Dashbaord, use your favorite text editor to edit the ```.bashrc``` file.
 
@@ -483,9 +490,7 @@ source ~/.bashrc
 If you followed the steps correctly the command ```openstack-login``` should output your Dashboard URL, username and password
 
 
-```bash
-juju run --unit keystone/leader leader-get admin_passwd
-```
+
 ## VM consoles
 ```bash
 juju config nova-cloud-controller console-access-protocol=novnc
