@@ -86,7 +86,7 @@ sudo maas status
 The output should be similar to the following.
 
 ```bash
-$ sudo maas status
+sudo maas status
 bind9                        RUNNING   pid 22236, uptime 0:01:02
 dhcpd                        STOPPED   Not started
 dhcpd6                       STOPPED   Not started
@@ -149,7 +149,79 @@ With the RSA public key imported, continue through the initial set-up. Once you 
 This step only applies if you’ve decided to let MAAS serve DHCP, as described in the Serving DHCP section of this guide.
 
 To enable DHCP click on the “Controllers” tab at the top, and select the controller (called maas.maas in this case).
+![Shadow Avatar](https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/posts/20190808/window.png){: .shadow width="90%" }
 
+
+In here click on “VLANs” and click on “VLAN” “untagged”.
+
+![Shadow Avatar](https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/posts/20190808/window.png){: .shadow width="90%" }
+
+
+Scroll down to the DHCP section and click on “Enable DHCP”.
+
+![Shadow Avatar](https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/posts/20190808/window.png){: .shadow width="90%" }
+
+
+Now, click on “Configure DHCP”
+
+![Shadow Avatar](https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/posts/20190808/window.png){: .shadow width="90%" }
+
+At this point DHCP is configured.
+
+
+## Configure DNS
+Early in our deployment we encountered some issues where MAAS would commission the servers but the servers would not be able to reach the internet to install APT packages. We figured out that, though we had specified the DNS during the initial set-up process, we also needed to specify the DNS within the controller VLAN itself. To set this up go to the “Controllers” tab in the MAAS web GUI, and select your MAAS controller (“maas.maas” in this case).
+
+![Shadow Avatar](https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/posts/20190808/window.png){: .shadow width="90%" }
+
+
+After selecting the controller from the list, click on “VLANs” and then click on the subnet listed under “subnets” (in this case it is “192.168.1.0/24”).
+
+![Shadow Avatar](https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/posts/20190808/window.png){: .shadow width="90%" }
+
+
+Now, find “Subnet summary” and click on “Edit”.
+
+![Shadow Avatar](https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/posts/20190808/window.png){: .shadow width="90%" }
+
+
+Specify the appropriate DNS in the DNS text field and click “Save summary”.
+
+![Shadow Avatar](https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/posts/20190808/window.png){: .shadow width="90%" }
+
+## Disable MAAS Proxy
+MAAS uses a proxy to download boot images and provision packages for APT and YUM. This has caused issues in our environment where MAAS does not see the hardware inventory of our nodes and, though it manages to “enlist” the nodes, it fails to deploy them. To disable the proxy from the web GUI, go to the “Settings” tab at the top and click the “Proxy” section on the left hand side. Then select the “Don’t use a proxy” option.
+
+![Shadow Avatar](https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/posts/20190808/window.png){: .shadow width="90%" }
+
+With DHCP handled, proxy disabled, and DNS properly configured, you are now ready to enlist nodes.
+
+## Enlisting Nodes (MAAS serving DHCP)
+Enlisting a node when MAAS is serving DHCP is very simple. All you have to do to is power the server on - as long as it is on the same network as the MAAS Controller, and IPMI + PXE boot are properly configured (as specified in Hardware Configuration), the node will boot under MAAS instruction and will be listed in the web GUI under “Machines” as shown below. Once the node is enlisted and in “New” state, the physical machine will power down.
+
+![Shadow Avatar](https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/posts/20190808/window.png){: .shadow width="90%" }
+
+It can be challenging to identify what physical node corresponds to each machine listed in the MAAS web GUI (especially if the nodes have similar hardware configuration), so it is best to enlist one node at a time.
+
+When enlisting each node, wait until MAAS says the node is in a “New” state. At that point click on the node and on the top left corner rename it to make it more easily identifiable in the future. In this case we are naming this node “juju” since it will be the JuJu Controller node.
+
+![Shadow Avatar](https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/posts/20190808/window.png){: .shadow width="90%" }
+
+Next, click on the “Configuration” tab, add the appropriate tag to each node. The JuJu Controller needs to be tagged “juju” and the nodes that will be used as compute nodes need to be tagged “compute”.
+
+![Shadow Avatar](https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/posts/20190808/window.png){: .shadow width="90%" }
+
+With nodes renamed, tagged and in “New” state, the list of Machines on the MAAS web GUI should look something like this.
+
+![Shadow Avatar](https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/posts/20190808/window.png){: .shadow width="90%" }
+
+Now the machines are ready to be “Commissioned”. To do this select all the machines and click on the green “Take Action” button, then click on “Commission”, and “Start commissioning machines”.
+
+![Shadow Avatar](https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/posts/20190808/window.png){: .shadow width="90%" }
+
+This process will take some time but once the machines are in a “Ready” state you can work on deploying the JuJu Controller and Compute nodes.
+
+![Shadow Avatar](https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/posts/20190808/window.png){: .shadow width="90%" }
 
 
 # [Next Section: JuJu](https://bsu-cybersecurity.github.io/posts/openstack-deployment-juju/)
