@@ -489,7 +489,7 @@ Now save your edits, and exit the file. To make the new changes effective source
 source ~/.bashrc
 ```
 
-If you followed the steps correctly the command ```openstack-login``` should output your Dashboard URL, username and password
+If you followed the steps correctly the command ```openstack-login``` should output your Dashboard URL, username, password, and domain.
 
 
 
