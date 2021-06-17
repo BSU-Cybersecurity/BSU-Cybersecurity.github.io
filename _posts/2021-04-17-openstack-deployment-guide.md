@@ -1,21 +1,20 @@
 ---
 layout: post
-title: "OpenStack Deployment - Intro"
+title: "OpenStack Deployment - 1. Overview"
 date: 2021-02-01 09:00:00 -0500
 categories: [Training-SOC, OpenStack]
 tags: [openstack, cloud, deployment, soc, guide, charms, juju, maas]
 ---
-# Overview
 The purpose of this guide is to aid in the replication and maintenance of our OpenStack cloud by documenting the deployment process.
 
-## Versions
+# Versions
 The software versions used in the BSU environment are as follows:
 * Ubuntu 20.04 LTS (Focal) for the MAAS server, Juju client, Juju controller, and all cloud nodes (including containers)
 * MAAS 2.9.2
 * Juju 2.7.6
 * OpenStack Wallaby
 
-## Hardware Layout (5 Nodes)
+# Hardware Layout (5 Nodes)
 
 | Name          | Description   |
 | ------------- |---------------|
@@ -25,7 +24,7 @@ The software versions used in the BSU environment are as follows:
 | node0-3 | These MAAS managed nodes (tagged “compute”) are where the OpenStack Charm containers get deployed to. These nodes form the actual OpenStack cloud. |
 
 
-## Deployment Process
+# Deployment Process
 
 The first step in deployment is to configure the hardware (servers) so they can play nicely with the MAAS Application later in the deployment process. It is important to ensure all minimal hardware requirements are met.
 

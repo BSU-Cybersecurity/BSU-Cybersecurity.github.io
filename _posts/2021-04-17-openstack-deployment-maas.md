@@ -5,15 +5,15 @@ date: 2021-02-04 09:00:00 -0500
 categories: [Training-SOC, OpenStack]
 tags: [openstack, cloud, deployment, soc, guide, charms, juju, maas]
 ---
-## MAAS
-### Controller
+# Controller OS
 One server that isn’t part of the OpenStack cluster (but is on the same network) needs to be the designated “MAAS Controller”. The MAAS Controller will “manage” the hardware (servers), meaning it can power on/off + deploy operating system images to each of the servers networked in the OpenStack cluster.
-#### Installing the Operating System
+## Installing the Operating System
 Though most Debian Linux distributions would work, our MAAS Controller runs Ubuntu Server Focal 20.04 LTS.
-#### A Few Pointers
+## A Few Pointers
 * If DHCP is being served by MAAS and there are no other DHCP servers, then Ubuntu won’t be able to automatically configure the network during the installation process - it will need to be configured manually (see below). Alternatively, you may decide to enable serving DHCP on the router during this process, and then disable it once the MAAS application is installed and configured.
 
-[INSERT IMAGE]
+![Shadow Avatar](https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/posts/20190808/window.png){: .shadow width="90%" }
+
 
 
 * It is infinitely easier to manage the MAAS Controller over SSH, however, Ubuntu Server comes out of the box with UFW, so SSH needs to be allowed through the firewall. To allow ssh, input the following command.
@@ -21,7 +21,7 @@ Though most Debian Linux distributions would work, our MAAS Controller runs Ubun
 $ sudo ufw allow ssh
 ```
 
-### Installation
+# Installation
 With Ubuntu configured on the MAAS Controller, the MAAS application needs to be installed using the Snap Store by inputting this command:
 
 ```bash
@@ -101,16 +101,18 @@ If any  services are not running, follow this process to re-initialize MAAS.
 
 At this point the MAAS web GUI should be accessible from a web browser on a machine sharing the same network as the MAAS Controller.
 
-### Initial Set-Up
+# Initial Set-Up
 
 Access the MAAS web GUI from your local browser. You should be able to access it as long as you are on the same network as the MAAS Controller and MAAS is running.
-[INSERT IMAGE]
+![Shadow Avatar](https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/posts/20190808/window.png){: .shadow width="90%" }
+
 
 Log in to the MAAS web GUI and follow the set-up process. The steps are mostly straight-forward.
 
-[INSERT IMAGE]
+![Shadow Avatar](https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/posts/20190808/window.png){: .shadow width="90%" }
 
-#### Import SSH Keys
+
+## Import SSH Keys
 In the next step of the initial set-up, you will be asked to input an ssh-key so that you can ssh into the machines MAAS deploys using RSA key authentication instead of a password. Grab the machine you intend to use to SSH into the MAAS-deployed nodes and retrieve the RSA key pair of that machine. If you are on a Linux machine and you have already generated SSH keys, the key can usually be retrieved from the default directory by entering the following command.
 
 ```bash
@@ -134,108 +136,19 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/2sats4R9ino4qZfNiPFL+PYAVjY6vdRP9G9KJZPy
 ```
 
 You will need to copy this output and paste it into the MAAS web GUI.
-[INSERT IMAGE]
+![Shadow Avatar](https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/posts/20190808/window.png){: .shadow width="90%" }
+
 
 With the RSA public key imported, continue through the initial set-up. Once you land on the page below there are a couple things that still need to be configured.
-[INSERT IMAGE]
+![Shadow Avatar](https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/posts/20190808/window.png){: .shadow width="90%" }
 
-#### Configuration
-#### Enable DHCP
+
+# Configuration
+## Enable DHCP
 This step only applies if you’ve decided to let MAAS serve DHCP, as described in the Serving DHCP section of this guide.
 
 To enable DHCP click on the “Controllers” tab at the top, and select the controller (called maas.maas in this case).
 
 
 
-## OpenStack
-We will be using JuJu to orchestrate the OpenStack deployment one individual “charm” container at a time. OpenStack can also be deployed via “bundles” - for instructions on a bundle deployment follow the official guide on the OpenStack website.
-
-Per the official guide:
-*“There are many moving parts involved in a charmed OpenStack install. During much of the process there will be components that have not yet been satisfied, which will cause error-like messages to be displayed in the output of the juju status command. Do not be alarmed. Indeed, these are opportunities to learn about the interdependencies of the various pieces of software. Messages such as Missing relation and blocked will vanish once the appropriate applications and relations have been added and processed.”*
-
-### Installation
-First, make sure you are interacting with the correct juju controller and model.
-```bash
-$ juju switch juju-controller:openstack
-```
-
-With that out of the way, it may be useful to monitor the deployment progress either through the JuJu dashboard or using the JuJu status command.
-
-#### Monitoring the OpenStack Deployment
-To access the JuJu dashboard, enter the following command.
-```bash
-$ juju dashboard
-```
-The output will look something like this.
-
-
-```bash
-$ juju dashboard
-Dashboard 0.6.2 for controller "juju-controller" is enabled at:
-  https://192.168.1.240:17070/dashboard
-Your login credential is:
-  username: admin
-  password: 536d568fb04609daee40c61abc36844d
-
-```
-Alternatively, to monitor JuJu status use this command.
-
-
-```bash
-$ watch -n 1 -c juju status --color
-```
-### Ceph-OSD
-The first charm we will deploy is the Ceph-osd charm or “object storage device”. This is done by first creating a YAML file called **ceph-osd.yaml** which specifies the charm’s configurations, where ```/dev/sdb``` is the path to the
-
-```yaml
-ceph-osd:
-  osd-devices: /dev/sdb
-  source: cloud:focal-wallaby
-```
-Next, we will deploy the Ceph-osd charm to 4 nodes. Since we only have compute nodes, the “compute” tag constraint is not necessary strictly speaking, but it is good practice for future deployments.
-
-
-```bash
-$ juju deploy -n 4 --config ceph-osd.yaml --constraints tags=compute ceph-osd
-```
-
-With this being the first charm deployed to the compute nodes, MAAS will first power on the servers and deploy Ubuntu 20.04 to each node - and once that is done, JuJu will proceed to install the charm software. You can monitor the progress using the JuJu status command output - it will look like this once the Ceph-osd charm is finished installing.
-
-
-```bash
-Model      Controller       Cloud/Region  Version  SLA          Timestamp
-openstack  juju-controller  maas-cloud    2.8.10   unsupported  05:09:54Z
-
-App       Version  Status   Scale  Charm     Store       Rev  OS      Notes
-ceph-osd  16.2.0   blocked      4  ceph-osd  jujucharms  310  ubuntu
-
-Unit         Workload  Agent  Machine  Public address  Ports  Message
-ceph-osd/0  blocked  idle  0  192.168.1.241  Missing relation: monitor
-ceph-osd/1* blocked  idle  1  192.168.1.235  Missing relation: monitor
-ceph-osd/2  blocked  idle  2  192.168.1.236  Missing relation: monitor
-ceph-osd/3  blocked  idle  3  192.168.1.237  Missing relation: monitor
-
-Machine  State    DNS            Inst id  Series  AZ       Message
-0        started  192.168.1.241  node0  focal   default  Deployed
-1        started  192.168.1.235  node1  focal   default  Deployed
-2        started  192.168.1.236  node2  focal   default  Deployed
-3        started  192.168.1.237  node3  focal   default  Deployed
-```
-### Nova Compute
-With the Ceph-osd installed, the Nova Compute charm is next on the list of deployment. The process is very similar across charms. First, create the file **nova-compute.yaml**.
-
-
-
-```yaml
-nova-compute:
-  config-flags: default_ephemeral_format=ext4
-  enable-live-migration: true
-  enable-resize: true
-  migration-auth-type: ssh
-  openstack-origin: cloud:focal-wallaby
-```
-Then, deploy the Nova Compute charm using the file nova-compute.yaml configurations.
-
-```bash
-$ juju deploy -n 3 --to 1,2,3 --config nova-compute.yaml nova-compute
-```
+Once the MAAS controller is ready, it is time to [install JuJu.](https://bsu-cybersecurity.github.io/posts/openstack-deployment-juju/)
