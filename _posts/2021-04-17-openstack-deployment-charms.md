@@ -114,7 +114,7 @@ juju add-relation vault-mysql-router:shared-db vault:shared-db
 ```bash
 sudo snap install vault
 ```
-Run ```juju status``` to obtain the IP of the vault container (the hint is that the port specified on ```juju status``` is 8200).
+Run ```juju status``` to obtain the IP of the vault container (the hint is that the port specified on ```juju status``` for this IP is 8200).
 ```bash
 export VAULT_ADDR="http://10.0.0.126:8200"
 ```
@@ -184,6 +184,12 @@ At this point the Vault is ready, and you can continue with the charm deployment
 juju add-relation mysql-innodb-cluster:certificates vault:certificates
 ```
 ## Neutron networking
+Create a file called **neutron.yaml** with the YAML below.
+
+> **Note:** The NIC in this case is called eth1 (line2) - but more than likely this will be different for our environment.
+
+> **Tip:** To find out the name of the NIC, go in the MAAS web GUI and click on 'machines' at the top. Now click on one of the 'compute' nodes and click on 'Networking', this will give you a list of the NIC ports and what they are called. There is one NIC that has a green checkmark saying it is used for PXE booting. We need one that says 'Unconfigured'. If this 'unconfigured' NIC is called "eno2", you would replace "eth1" on the YAML below with "eno2" (Example: ```bridge-interface-mappings: br-ex:eno2```).
+
 ```yaml
 ovn-chassis:
   bridge-interface-mappings: br-ex:eth1
@@ -228,6 +234,8 @@ juju add-relation neutron-api-mysql-router:shared-db neutron-api:shared-db
 ```
 
 ## Keystone
+Create a file called **keystone.yaml** with the YAML below.
+
 ```yaml
 keystone:
   worker-multiplier: 0.25
@@ -250,6 +258,7 @@ juju add-relation keystone:certificates vault:certificates
 ```
 
 ## RabbitMQ
+
 ```bash
 juju deploy --to lxd:2 rabbitmq-server
 ```
@@ -263,6 +272,8 @@ juju add-relation rabbitmq-server:amqp nova-compute:amqp
 
 ```
 ## Nova cloud controller
+Create a file called **nova-cloud-controller.yaml** with the YAML below.
+
 ```yaml
 nova-cloud-controller:
   network-manager: Neutron
@@ -287,6 +298,8 @@ juju add-relation nova-cloud-controller:certificates vault:certificates
 
 
 ## Placement
+Create a file called **placement.yaml** with the YAML below.
+
 ```yaml
 placement:
   worker-multiplier: 0.25
@@ -321,6 +334,8 @@ juju add-relation openstack-dashboard:identity-service keystone:identity-service
 juju add-relation openstack-dashboard:certificates vault:certificates
 ```
 ## Glance
+Create a file called **glance.yaml** with the YAML below.
+
 ```yaml
 glance:
   worker-multiplier: 0.25
@@ -345,6 +360,8 @@ juju add-relation glance:certificates vault:certificates
 ```
 
 ## Ceph monitor
+Create a file called **ceph-mon.yaml** with the YAML below.
+
 ```yaml
 ceph-mon:
   expected-osd-count: 3
@@ -361,6 +378,8 @@ juju add-relation ceph-mon:client glance:ceph
 ```
 
 ## Cinder
+Create a file called **cinder.yaml** with the YAML below.
+
 ```yaml
 cinder:
   block-device: None
