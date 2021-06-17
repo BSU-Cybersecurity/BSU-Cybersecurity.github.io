@@ -42,7 +42,7 @@ watch -n 1 -c juju status --color
 ## Ceph-OSD
 The first charm we will deploy is the Ceph-osd charm or “object storage device”. This is done by first creating a YAML file called **ceph-osd.yaml** which specifies the charm’s configurations, where “**/dev/sdb**” is the path to the ```sdb```drive.
 
-```YAML
+```yaml
 ceph-osd:
   osd-devices: /dev/sdb
   source: cloud:focal-wallaby
@@ -427,6 +427,7 @@ juju add-relation ceph-osd:juju-info ntp:juju-info
 ```
 
 ## Final results and dashboard access
+At this point you should have a fully deployed OpenStack
 ```bash
 juju status --format=yaml openstack-dashboard | grep public-address | awk '{print $2}' | head -1
 ```
