@@ -111,14 +111,15 @@ juju add-relation vault-mysql-router:shared-db vault:shared-db
 
 
 ### Unseal Vault
+To unseal the Vault container, first install the vault agent application on the MAAS Controller.
 ```bash
 sudo snap install vault
 ```
-Run ```juju status``` to obtain the IP of the vault container (the hint is that the port specified on ```juju status``` for this IP is 8200).
+With the Vault application installed, run ```juju status``` to obtain the IP of the vault container (the hint is that the port specified on ```juju status``` for this IP is 8200). This is so the Vault application knows where to reach the Vault container.
 ```bash
 export VAULT_ADDR="http://10.0.0.126:8200"
 ```
-
+Now ask the vault for 5 keys.
 ```bash
 vault operator init -key-shares=5 -key-threshold=3
 ```
@@ -143,6 +144,7 @@ reconstruct the master key, Vault will remain permanently sealed!
 It is possible to generate new unseal keys, provided you have a quorum of
 existing unseal keys shares. See "vault operator rekey" for more information.
 ```
+Now run ```vault operator unseal $Key``` and replace ```$Key``` with each of the 5 keys above.
 ```bash
 vault operator unseal XONSc5Ku8HJu+ix/zbzWhMvDTiPpwWX0W1X/e/J1Xixv
 vault operator unseal J/fQCPvDeMFJT3WprfPy17gwvyPxcvf+GV751fTHUoN/
@@ -150,13 +152,13 @@ vault operator unseal +bRfX5HMISegsODqNZxvNcupQp/kYQuhsQ2XA+GamjY4
 vault operator unseal FMRTPJwzykgXFQOl2XTupw2lfgLOXbbIep9wgi9jQ2ls
 vault operator unseal 7rrxiIVQQWbDTJPMsqrZDKftD6JxJi6vFOlyC0KSabDB
 ```
-
+Now grab the token from line 7 of the sample output above, and enter these commands:
 ```bash
 export VAULT_TOKEN=s.ezlJjFw8ZDZO6KbkAkm605Qv
 vault token create -ttl=10m
 ```
 
-sample output:
+Sample output:
 ```bash
 Key                  Value
 ---                  -----
@@ -169,11 +171,13 @@ identity_policies    []
 policies             ["root"]
 ```
 
+Now grab the last token from line 3 of the sample output above, and enter this command:
 ```bash
 juju run-action --wait vault/leader authorize-charm token=s.QMhaOED3UGQ4MeH3fmGOpNED
 ```
-### Generate the Certificate Authority (CA)
 
+### Generate the Certificate Authority (CA)
+The last step to unseal the vault is to generate a CA using the command below.
 ```bash
 juju run-action --wait vault/leader generate-root-ca
 ```
