@@ -108,9 +108,77 @@ juju add-relation vault-mysql-router:db-router mysql-innodb-cluster:db-router
 juju add-relation vault-mysql-router:shared-db vault:shared-db
 ```
 
+
+### Unseal Vault
 ```bash
+sudo snap install vault
+```
+Run ```juju status``` to obtain the IP of the vault container (the hint is that the port specified on ```juju status``` is 8200).
+```bash
+export VAULT_ADDR="http://10.0.0.126:8200"
 
 ```
+
+```bash
+vault operator init -key-shares=5 -key-threshold=3
+```
+Sample output:
+```bash
+Unseal Key 1: XONSc5Ku8HJu+ix/zbzWhMvDTiPpwWX0W1X/e/J1Xixv
+Unseal Key 2: J/fQCPvDeMFJT3WprfPy17gwvyPxcvf+GV751fTHUoN/
+Unseal Key 3: +bRfX5HMISegsODqNZxvNcupQp/kYQuhsQ2XA+GamjY4
+Unseal Key 4: FMRTPJwzykgXFQOl2XTupw2lfgLOXbbIep9wgi9jQ2ls
+Unseal Key 5: 7rrxiIVQQWbDTJPMsqrZDKftD6JxJi6vFOlyC0KSabDB
+
+Initial Root Token: s.ezlJjFw8ZDZO6KbkAkm605Qv
+
+Vault initialized with 5 key shares and a key threshold of 3. Please securely
+distribute the key shares printed above. When the Vault is re-sealed,
+restarted, or stopped, you must supply at least 3 of these keys to unseal it
+before it can start servicing requests.
+
+Vault does not store the generated master key. Without at least 3 key to
+reconstruct the master key, Vault will remain permanently sealed!
+
+It is possible to generate new unseal keys, provided you have a quorum of
+existing unseal keys shares. See "vault operator rekey" for more information.
+```
+```bash
+vault operator unseal XONSc5Ku8HJu+ix/zbzWhMvDTiPpwWX0W1X/e/J1Xixv
+vault operator unseal J/fQCPvDeMFJT3WprfPy17gwvyPxcvf+GV751fTHUoN/
+vault operator unseal +bRfX5HMISegsODqNZxvNcupQp/kYQuhsQ2XA+GamjY4
+vault operator unseal FMRTPJwzykgXFQOl2XTupw2lfgLOXbbIep9wgi9jQ2ls
+vault operator unseal 7rrxiIVQQWbDTJPMsqrZDKftD6JxJi6vFOlyC0KSabDB
+```
+
+```bash
+export VAULT_TOKEN=s.ezlJjFw8ZDZO6KbkAkm605Qv
+vault token create -ttl=10m
+```
+
+sample output:
+```bash
+Key                  Value
+---                  -----
+token                s.QMhaOED3UGQ4MeH3fmGOpNED
+token_accessor       nApB972Dp2lnTTIF5VXQqnnb
+token_duration       10m
+token_renewable      true
+token_policies       ["root"]
+identity_policies    []
+policies             ["root"]
+```
+
+```bash
+juju run-action --wait vault/leader authorize-charm token=s.QMhaOED3UGQ4MeH3fmGOpNED
+```
+### Generate the Certificate Authority (CA)
+
+```bash
+juju run-action --wait vault/leader generate-root-ca
+```
+
+At this point the Vault is ready, and you can continue with the charm deployment.
 
 ```bash
 juju add-relation mysql-innodb-cluster:certificates vault:certificates
