@@ -6,7 +6,7 @@ categories: [Training-SOC, Tools]
 tags: [tools, elastic-siem, soc, client]
 ---
 # Tech Doc Portal
-[Documentation](greenbone.net)
+[Documentation](https://greenbone.net)
 
 # Install/General Setup
 - [ufidon/its250: Course materials and demos (github.com)](https://github.com/ufidon/its250)
