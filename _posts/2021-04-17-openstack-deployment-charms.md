@@ -145,7 +145,9 @@ reconstruct the master key, Vault will remain permanently sealed!
 It is possible to generate new unseal keys, provided you have a quorum of
 existing unseal keys shares. See "vault operator rekey" for more information.
 ```
+
 Now run ```vault operator unseal $Key``` and replace ```$Key``` with each of the 5 keys above.
+
 ```bash
 vault operator unseal XONSc5Ku8HJu+ix/zbzWhMvDTiPpwWX0W1X/e/J1Xixv
 vault operator unseal J/fQCPvDeMFJT3WprfPy17gwvyPxcvf+GV751fTHUoN/
