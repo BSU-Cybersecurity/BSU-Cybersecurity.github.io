@@ -14,41 +14,15 @@ tags: [tools, suricata, soc, client]
 - https://sandilands.info/sgordon/building-internal-network-virtualbox
 - Netplan is the manager for recent versions of LTS Ubuntu
 - VirtualBox can use NatNetwork with promiscuous mode to share packet traffic between virtual machines - Much simpler to set-up method, but also more VM dependent.
-# Suricata Rules
-- Format
-  - https://suricata.readthedocs.io/en/suricata-6.0.0/rules/intro.html
-    - Defines the basic signature of action/header/options
-    - Action: alert, pass (stop inspection), drop(drop packet and alert), reject (send unreachable error to packet sender), etc…
-    - Header
-      - Protocol (tcp, udp, icmp, http, ssh)
-      - Source and destination of traffic ($HOME_NET, $EXTERNAL_NET) IP or Ports
-      - Direction ->, <>
-    - Options
-      - Enclosed by parenthesis, separated by semicolons
-      - (msg:"Message with semicolon)”;
-- Custom
-  - https://suricata.readthedocs.io/en/suricata-6.0.0/rule-management/adding-your-own-rules.html
-    - Documentation for creating a ruleset file and adding the file path to the suricata .yaml ruleset
-    - Restart suricata for changes to take effect
-- Management tool (add pre-built rules)
-  - Recommended method for adding rules
-  - https://suricata.readthedocs.io/en/suricata-6.0.0/rule-management/suricata-update.html
-    - (fetch updated rulesets) $sudo suricata-update update-sources
-    - (list updated rulesets) $sudo suricata-update list-sources
-    - (show rulesets in effect) $sudo suricata-update list-enabled-sources
 
-Installing Suricata is a very simple process. The official documentation provided can be followed and includes a basic configuration.
-<https://suricata.readthedocs.io/en/suricata-6.0.0/quickstart.html>
->This quickstart guide uses an ubuntu repo.
-
-#### Testing Environment
+# Testing Environment
 
 For installation testing purposes, a simple setup of 2 virtualbox machines running linux server works well. One machine will act as a client, while the other machine can have Suricata installed. Once setup is complete, test the environment by using the command `curl http://testmyids.com/`. A sucessful setup should trigger an alert that will be visible using `sudo tail -f /var/log/suricata/fast.log`.
 >Be sure to create a nat network and enable promiscious mode for the virtual machines. This will enable traffic to be shared on the nic that is monitored by Suricata.
 
-#### Suricata Rules
 
-##### Format
+# Suricata Rules
+#### Format
 
 Rules for Suricata are defined using a basic signature of action/header/options
 
