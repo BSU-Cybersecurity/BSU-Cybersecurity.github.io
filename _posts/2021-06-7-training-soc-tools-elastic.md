@@ -1,63 +1,74 @@
 ---
 layout: post
-title: "Tools - Suricata"
-date: 2021-06-07 09:00:00 -0500
+title: "Tools - Elk Stack"
+date: 2021-06-18 09:00:00 -0500
 categories: [Training-SOC, Tools]
-tags: [tools, suricata, soc, client]
+tags: [tools, elk, soc, client]
 ---
-# Install/Setup
-- https://suricata.readthedocs.io/en/suricata-6.0.0/quickstart.html
-  - This quickstart guide uses an ubuntu repo. Can also be installed from source. Documentation also contains a curl command for easy testing.
-# Host Bridged Network
-- https://medium.com/nycdev/how-to-ssh-from-a-host-to-a-guest-vm-on-your-local-machine-6cb4c91acc2e
-# Client-Router-Server
-- https://sandilands.info/sgordon/building-internal-network-virtualbox
-- Netplan is the manager for recent versions of LTS Ubuntu
-- VirtualBox can use NatNetwork with promiscuous mode to share packet traffic between virtual machines - Much simpler to set-up method, but also more VM dependent.
+# Installing and Configuring ELK
 
-# Testing Environment
+## Initial Installs
 
-For installation testing purposes, a simple setup of 2 virtualbox machines running linux server works well. One machine will act as a client, while the other machine can have Suricata installed. Once setup is complete, test the environment by using the command `curl http://testmyids.com/`. A sucessful setup should trigger an alert that will be visible using `sudo tail -f /var/log/suricata/fast.log`.
->Be sure to create a nat network and enable promiscious mode for the virtual machines. This will enable traffic to be shared on the nic that is monitored by Suricata.
+1. Install java with `sudo apt-get install openjdk-8-jdk`
+   - Check java version with `java -version`
+2. Install apt-transport package `sudo apt-get install apt-transport-https`
+3. Add Elastic Repo
+   `echo “deb https://artifacts.elastic.co/packages/7.x/apt stable main” | sudo tee –a /etc/apt/sources.list.d/elastic-7.x.list`
 
+## Elasticsearch
 
-# Suricata Rules
-#### Format
+Elasticsearch acts as a powerful search, analysis and storage tool.
 
-Rules for Suricata are defined using a basic signature of action/header/options
+### Install Elasticsearch
 
-- <span style="color:red">Action</span>
-  - Determines what occurs when the signature matches
-  - alert (generates an alert)
-  - pass (stops inspection)
-  - reject (send unreachable error to sender)
-- <span style="color:green">Header</span>
-  - Protocol (tcp, udp, icmp, http, ssh)
-  - Source and destination of traffic
-  - ($HOME\_NET, $EXTENRAL_NET) IP or Ports
-  - Direction ->, <>
-- <span style="color:blue">Options</span>
-  - Enclosed by parenthesis, seperated by semicolons
+`sudo apt-get install elasticsearch`
 
-> <span style="color:red"> drop<span style="color:green"> tcp $HOME\_NET any -> $EXTERNAL_NET any <span style="color:blue">(msg:”ET TROJAN Likely Bot Nick in IRC (USA +..)”; flow:established,to_server; flowbits:isset,is_proto_irc; content:”NICK “; pcre:”/NICK .*USA.*[0-9]{3,}/i”; reference:url,doc.emergingthreats.net/2008124; classtype:trojan-activity; sid:2008124; rev:2;)</span>
+### Configuration Elasticsearch
 
-> More Information: https://suricata.readthedocs.io/en/suricata-6.0.0/rules/intro.html
+1. Edit configuration file with `sudo nano /etc/elasticsearch/elasticsearch.yml`
 
-##### Custom
-1. Create a file to store rules
-`sudo nano local.rules`
-2. Update the Suricata configuration file to include rule file
-   - `sudo nano /etc/suricata/suricata.yaml`
-      - `~  default-rule-path: /usr/local/etc/suricata/rules` 
-      rule-files:
-     \- suricata.rules
-     \- /path/to/local.rules
-> More information:
-https://suricata.readthedocs.io/en/suricata-6.0.0/rule-management/adding-your-own-rules.html
-##### Management Tool
-This is the method reccomended for adding rules for Suricata.
-- Check available rulesets
-1. fetch index with `sudo suricata-update update-sources`
-2. List available sources with `sudo suricata-update list-sources`
-3. enable example `sudo suricata-update enable-source oisf/trafficid` 
-`sudo suricata-update`
+   - Uncomment lines
+     >       #network.host: 192.168.0.1 (Replace with localhost)
+     >       #http.port: 9200
+   - Add `discovery.type: single-node` in Discovery section
+2. Set the heap size 
+   - `sudo nano /etc/elasticsearch/jvm.options`
+   - Edit -Xms and -Xmx to desired heap size
+      > No more than half of ram
+      >
+### Starting and Testing Elasticsearch
+
+1. Start Elasticsearch
+   - Begin service `sudo systemctl start elasticsearch.service`
+   - Enable on boot `sudo systemctl enable elasticsearch.service`
+
+2. Test
+
+- `curl –X GET “localhost:9200”`
+![Desktop View](https://phoenixnap.com/kb/wp-content/uploads/2021/04/test-elasticsearch-service.png)
+_Display of curl command_
+
+## Kibana
+
+Kibana is a graphical user interface for displaying data.
+
+### Install Kibana
+
+`sudo apt-get install kibana`
+
+1. Open config file `sudo nano /etc/kibana/kibana.yaml`
+2. Uncomment lines
+   - `#server.port: 5601`
+   - `#server.host: “localhost”`
+   - `#elasticsearch.hosts: [“http://localhost:9200”]`
+
+## Starting and Testing Kibana
+
+1. Start Kibana
+   - Begin service `sudo systemctl start kibana`
+   - Enable on boot `sudo systemctl enable kibana`
+
+> Allow past UFW if enabled `sudo ufw allow 5601/tcp`
+
+2. Test Kibana
+   - Browse to http://localhost:5601 
