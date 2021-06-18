@@ -40,9 +40,9 @@ watch -n 1 -c juju status --color
 ```
 
 ## Ceph-OSD
-The first charm we will deploy is the Ceph-osd charm or “object storage device”. This is done by first creating a YAML file called **ceph-osd.yaml** which specifies the charm’s configurations, where “**/dev/sdb**” is the path to the
+The first charm we will deploy is the Ceph-osd charm or “object storage device”. This is done by first creating a YAML file called **ceph-osd.yaml** which specifies the charm’s configurations, where “**/dev/sdb**” is the path to the ```sdb```drive.
 
-```YAML
+```yaml
 ceph-osd:
   osd-devices: /dev/sdb
   source: cloud:focal-wallaby
@@ -78,6 +78,7 @@ Machine  State    DNS            Inst id  Series  AZ       Message
 
 ## Nova Compute
 With the Ceph-osd installed, the Nova Compute charm is next on the list of deployment. The process is very similar across charms. First, create the file **nova-compute.yaml**.
+
 ```yaml
 nova-compute:
   config-flags: default_ephemeral_format=ext4
@@ -111,18 +112,26 @@ juju add-relation vault-mysql-router:shared-db vault:shared-db
 
 
 ### Unseal Vault
+To unseal the Vault container, first install the vault agent application on the MAAS Controller.
+
 ```bash
 sudo snap install vault
 ```
-Run ```juju status``` to obtain the IP of the vault container (the hint is that the port specified on ```juju status``` for this IP is 8200).
+With the Vault application installed, run ```juju status``` to obtain the IP of the vault container.
+> **Hint:** The port specified on ```juju status``` for this IP is 8200. This step is to tell the Vault application where to reach the Vault container.
+
+
 ```bash
 export VAULT_ADDR="http://10.0.0.126:8200"
 ```
+
+Now ask the vault for 5 keys.
 
 ```bash
 vault operator init -key-shares=5 -key-threshold=3
 ```
 Sample output:
+
 ```bash
 Unseal Key 1: XONSc5Ku8HJu+ix/zbzWhMvDTiPpwWX0W1X/e/J1Xixv
 Unseal Key 2: J/fQCPvDeMFJT3WprfPy17gwvyPxcvf+GV751fTHUoN/
@@ -143,6 +152,9 @@ reconstruct the master key, Vault will remain permanently sealed!
 It is possible to generate new unseal keys, provided you have a quorum of
 existing unseal keys shares. See "vault operator rekey" for more information.
 ```
+
+Now run ```vault operator unseal $Key``` and replace ```$Key``` with each of the 5 keys above.
+
 ```bash
 vault operator unseal XONSc5Ku8HJu+ix/zbzWhMvDTiPpwWX0W1X/e/J1Xixv
 vault operator unseal J/fQCPvDeMFJT3WprfPy17gwvyPxcvf+GV751fTHUoN/
@@ -151,12 +163,18 @@ vault operator unseal FMRTPJwzykgXFQOl2XTupw2lfgLOXbbIep9wgi9jQ2ls
 vault operator unseal 7rrxiIVQQWbDTJPMsqrZDKftD6JxJi6vFOlyC0KSabDB
 ```
 
+Now grab the token (line 7 in the sample output above), and enter these commands:
+
+> **Note:** Replace the token below ```s.ezlJjFw8ZDZO6KbkAkm605Qv``` with your own.
+
+
 ```bash
 export VAULT_TOKEN=s.ezlJjFw8ZDZO6KbkAkm605Qv
 vault token create -ttl=10m
 ```
 
-sample output:
+Sample output:
+
 ```bash
 Key                  Value
 ---                  -----
@@ -169,10 +187,16 @@ identity_policies    []
 policies             ["root"]
 ```
 
+Now grab the last token (line 3 of the sample output above), and enter this command:
+
+> **Note:** Replace the token below ```s.QMhaOED3UGQ4MeH3fmGOpNED``` with your own.
+
 ```bash
 juju run-action --wait vault/leader authorize-charm token=s.QMhaOED3UGQ4MeH3fmGOpNED
 ```
+
 ### Generate the Certificate Authority (CA)
+The last step to unseal the vault is to generate a CA using the command below.
 
 ```bash
 juju run-action --wait vault/leader generate-root-ca
@@ -183,12 +207,14 @@ At this point the Vault is ready, and you can continue with the charm deployment
 ```bash
 juju add-relation mysql-innodb-cluster:certificates vault:certificates
 ```
+
 ## Neutron networking
 Create a file called **neutron.yaml** with the YAML below.
 
-> **Note:** The NIC in this case is called eth1 (line2) - but more than likely this will be different for our environment.
+> **Note:** The NIC in this case is called eth1 (line2 below) - but more than likely this will be different for our environment.
 
 > **Tip:** To find out the name of the NIC, go in the MAAS web GUI and click on 'machines' at the top. Now click on one of the 'compute' nodes and click on 'Networking', this will give you a list of the NIC ports and what they are called. There is one NIC that has a green checkmark saying it is used for PXE booting. We need one that says 'Unconfigured'. If this 'unconfigured' NIC is called "eno2", you would replace "eth1" on the YAML below with "eno2" (Example: ```bridge-interface-mappings: br-ex:eno2```).
+
 
 ```yaml
 ovn-chassis:
@@ -269,7 +295,7 @@ juju add-relation rabbitmq-server:amqp nova-compute:amqp
 ```
 
 ```bash
-
+[SAMPLE JUJU STATUS OUTPUT GOES HERE]
 ```
 ## Nova cloud controller
 Create a file called **nova-cloud-controller.yaml** with the YAML below.
@@ -356,7 +382,7 @@ juju add-relation glance:identity-service keystone:identity-service
 juju add-relation glance:certificates vault:certificates
 ```
 ```bash
-
+[SAMPLE JUJU STATUS OUTPUT GOES HERE]
 ```
 
 ## Ceph monitor
@@ -427,12 +453,48 @@ juju add-relation ceph-osd:juju-info ntp:juju-info
 ```
 
 ## Final results and dashboard access
+Once the ```juju status``` output has settled it should look something like this:
+```bash
+[SAMPLE JUJU STATUS OUTPUT GOES HERE]
+```
+
+At this point you should have a fully deployed OpenStack. To retrieve the OpenStack Dashboard IP enter the following command:
 ```bash
 juju status --format=yaml openstack-dashboard | grep public-address | awk '{print $2}' | head -1
 ```
+
+And to retrieve the password use:
+
 ```bash
 juju run --unit keystone/leader leader-get admin_passwd
 ```
+
+### Make Accessing the Openstack Dashboard easier
+It is sometimes helpful to have aliases for commonly used commands.
+
+To create an alias that outputs the URL and password of the OpenStack Dashbaord, use your favorite text editor to edit the ```.bashrc``` file.
+
+```bash
+vim ~/.bashrc
+```
+
+With the ```.bashrc``` file open, scroll down to where you see aliases listed. Here enter the following aliases in new lines:
+
+```bash
+alias openstack-ip='juju status --format=yaml openstack-dashboard | grep public-address | awk '"'"'{print $2}'"'"' | head -1'
+alias openstack-pass='juju run --unit keystone/leader leader-get admin_passwd'
+alias openstack-login='openstackip=$(openstack-ip) && echo "Dashboard URL: https://"$openstackip"/horizon" && echo "Username: admin" && openstackpass=$(openstack-pass) && echo "Passowrd: "$openstackpass && echo "Domain: admin_domain"'
+```
+
+Now save your edits, and exit the file. To make the new changes effective source the ```.bashrc``` file.
+```bash
+source ~/.bashrc
+```
+
+If you followed the steps correctly the command ```openstack-login``` should output your Dashboard URL, username, password, and domain.
+
+
+
 ## VM consoles
 ```bash
 juju config nova-cloud-controller console-access-protocol=novnc

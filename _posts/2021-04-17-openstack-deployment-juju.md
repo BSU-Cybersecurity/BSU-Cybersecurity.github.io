@@ -21,10 +21,10 @@ With that being said, the first step of the JuJu configuration is to create a cl
 
 ```yaml
 clouds:
-maas-cloud:
-type: maas
-auth-types: [oauth1]
-endpoint: http://10.0.0.2:5240/MAAS
+  maas-cloud:
+    type: maas
+    auth-types: [oauth1]
+    endpoint: http://10.0.0.2:5240/MAAS
 ```
 
 Then use the following JuJu command to create a cloud using the configurations specified in the **maas-cloud.yaml** and specify the name of the cloud, in this case “maas-cloud”.
@@ -36,10 +36,10 @@ Now you need to follow similar steps to add MAAS credentials (API key) to the �
 
 ```yaml
 credentials:
-maas-cloud:
-admin:
-auth-type: oauth1
-maas-oauth: PCwrBEpRsbcPu9FDzT:5YrGQWLs45RpsgHD4R:JvW9ywBqCS6SDZHzVW9g6yAVNYA6BNXn
+  maas-cloud:
+    admin:
+      auth-type: oauth1
+      maas-oauth: PCwrBEpRsbcPu9FDzT:5YrGQWLs45RpsgHD4R:JvW9ywBqCS6SDZHzVW9g6yAVNYA6BNXn
 ```
 
 

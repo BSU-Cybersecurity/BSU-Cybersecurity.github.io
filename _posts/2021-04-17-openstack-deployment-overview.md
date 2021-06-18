@@ -30,7 +30,7 @@ The first step in deployment is to configure the hardware (servers) so they can 
 
 Next, there needs to be some thought put into network architecture, and the Network Set-Up section lists some of the considerations.
 
-Ubuntu Server 20.04 LTS needs to be With hardware and network configuration done, installed on a server separate from the OpenStack cluster - this server is referred to as the “MAAS Controller”. The MAAS Application is then installed on the MAAS Controller using the Snap Store, and is then configured appropriately.
+With hardware and network configuration done, Ubuntu Server 20.04 LTS needs to be installed on a server separate from the OpenStack cluster - this server is referred to as the “MAAS Controller”. The MAAS Application is then installed on the MAAS Controller using the Snap Store, and is then configured appropriately.
 
 The servers that are part of the OpenStack cluster (which are referred to as JuJu Controller, Node0, Node1, Node2, and Node3) need to then be enlisted on MAAS, and set to a “ready” state to be “deployed” later on by JuJu. This process is covered in the MAAS Enlisting section.
 
