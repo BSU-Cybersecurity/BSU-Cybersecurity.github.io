@@ -6,7 +6,7 @@ categories: [Training-SOC, Tools]
 tags: [tools, pfsense, soc, client]
 ---
 
-# OpenVPN setup guide used:
+## OpenVPN Initial Set-Up
 https://www.ceos3c.com/pfsense/openvpn-on-pfsense/
 
 - All changes made from the guide:
@@ -26,5 +26,9 @@ https://www.ceos3c.com/pfsense/openvpn-on-pfsense/
 - OpenVPN Hardware Requirements
   - https://openvpn.net/vpn-server-resources/openvpn-access-server-system-requirements/
 
+## Adding a User to Pfsense
+
+
+## Configuring Firewall for Admin/User Tunnels
 
 
