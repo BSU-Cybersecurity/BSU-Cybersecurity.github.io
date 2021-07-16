@@ -7,5 +7,5 @@ tags: [tools, ghosts, traffic, generation, soc, client]
 ---
 <div class="container">
     <img src ="https://github.com/cmu-sei/GHOSTS/raw/master/assets/ghosts-logo.jpg">
-    <button class="btn">Button</button>
+    <button class="btn"><a href="https://github.com/cmu-sei/ghosts">Ghosts GitHub</a></button>
 </div>
