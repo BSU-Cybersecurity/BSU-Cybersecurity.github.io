@@ -35,7 +35,7 @@ Elasticsearch acts as a powerful search, analysis and storage tool.
    - `sudo nano /etc/elasticsearch/jvm.options`
    - Edit -Xms and -Xmx to desired heap size
       > No more than half of ram
-      >
+      
 ### Starting and Testing Elasticsearch
 
 1. Start Elasticsearch
@@ -67,8 +67,6 @@ Kibana is a graphical user interface for displaying data.
 1. Start Kibana
    - Begin service `sudo systemctl start kibana`
    - Enable on boot `sudo systemctl enable kibana`
-
 > Allow past UFW if enabled `sudo ufw allow 5601/tcp`
-
 2. Test Kibana
    - Browse to http://localhost:5601 
