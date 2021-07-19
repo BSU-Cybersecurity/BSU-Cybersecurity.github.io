@@ -69,12 +69,12 @@ The install/config for ghosts requires a server and client. Easy installation us
      $ docker-compose up -d
      ```
    - Test API
-     > Navigate to http://localhost:5000/api/home
+     > Navigate to <http://localhost:5000/api/home>
    - Set up Grafana
       1. Access Grafana at :3000 via web browser
       2. Default login <b>admin/admin</b>
       3. Set up a datasource named "ghosts" to the ghosts postgres database
-      4. import https://github.com/cmu-sei/GHOSTS/blob/master/configuration/grafana/dashboards/GHOSTS-default%20Grafana%20dashboard.json
+      4. import <https://github.com/cmu-sei/GHOSTS/blob/master/configuration/grafana/dashboards/GHOSTS-default%20Grafana%20dashboard.json>
       > If restarts occur due to insufficient permissions, chown the host location of the docker-compose file.
 
 ### Ghost Linux Client Install
@@ -92,7 +92,7 @@ The install/config for ghosts requires a server and client. Easy installation us
       sudo apt-get install -y aspnetcore-runtime-5.0
      ```
   - Download Client
-    - Navigate to https://cmu.box.com/s/1696ptcmdsu36f0qicx100kkesf4t3gv and download zip
+    - Navigate to <https://cmu.box.com/s/1696ptcmdsu36f0qicx100kkesf4t3gv> and download zip
     - Unzip to user directory that ghosts should run in 
       ```console
       $ unzip ghosts-client-linux-v3.0.zip
