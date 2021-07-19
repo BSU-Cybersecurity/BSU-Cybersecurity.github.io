@@ -27,8 +27,7 @@ BSU's SOC environment consists of Dell PowerEdge servers (no iDRAC license), so 
 ### iDRAC +IPMI
 As mentioned above, we do not have an iDRAC license, so this step is especially unique for us.
 From the “Home” tab of Life Cycle Manager select “Configure server for remote access (iDRAC)”. The Home tab will look something like this depending on server generation.
-
-![Shadow Avatar](https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images/posts/20190808/window.png){: .shadow width="90%" }
+![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/image19.jpg?raw=true)
 
 
 Here, select “Network”.
