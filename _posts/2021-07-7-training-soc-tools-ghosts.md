@@ -26,26 +26,26 @@ The install/config for ghosts requires a server and client. Easy installation us
       lsb-release
     ```
 - GPG key
-   ```console
-     $ curl -fsSL https://download.docker.com/linux/ubuntu gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-     ```
+    ```console
+    $ curl -fsSL https://download.docker.com/linux/ubuntu gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    ```
 - Setup stable repo 
      ```console
      $ echo \
       "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
       $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-      ```
-      - Install Docker Engine
-  
-      ```console
-      $ sudo apt-get update
-      $ sudo apt-get install docker-ce docker-ce-cli containerd.io
-      ```
+    ```
+#### Install Docker Engine
+- Get and Install Packages  
+    ```console
+    $ sudo apt-get update
+    $ sudo apt-get install docker-ce docker-ce-cli containerd.io
+  ```
       
-      - Verify install
-      ```console
-      $ sudo docker run hello-world
-      ```
+- Verify install
+    ```console 
+  $ sudo docker run hello-world
+    ```
 #### Install Docker Compose
    - Download stable release
       ```console
