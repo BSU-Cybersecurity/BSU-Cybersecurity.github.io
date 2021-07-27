@@ -1,32 +1,28 @@
 ---
 layout: post
-title: "OpenStack Deployment - Hardware"
-date: 2021-01-29 09:00:00 -0500
-categories: [Training-SOC, OpenStack]
-tags: [openstack, cloud, deployment, soc, guide, charms, juju, maas]
+title: "Proxmox Deployment - Hardware"
+date: 2021-07-26 09:00:00 -0500
+categories: [Training-SOC, Proxmox]
+tags: [Proxmox, cloud, deployment, soc, guide, RAID]
 ---
 # Minimum Requirements
 
-| Name | CPUs (cores) | RAM (GB) | Storage | NIC's |
-| ------ | ------ | ------ | ------ | ------ |
-| MAAS Controller | 2| 8| 1x 40GB| 1 |
-| JuJu  Controller | 2| 4| 1x 40GB| 1 |
-| Node0 | 2| 8| 3x 80GB| 2 |
-| Node1 | 2| 8| 3x 80GB| 2 |
-| Node2 | 2| 8| 3x 80GB| 2 |
-| Node3 | 2| 8| 3x 80GB| 2 |
+- Intel EMT64 or AMD64.
+- Memory, minimum 2 GB for OS and Proxmox VE services. Plus designated memory for guests.
+- VM storage: Neither ZFS nor Ceph are compatible with a hardware RAID controller. Shared and distributed storage is also possible.
 
 # Configuration
 ## Dell PowerEdge Servers
-BSU's SOC environment consists of Dell PowerEdge servers (no iDRAC license), so set-up steps are mostly identical across servers aside from varying hardware generations - and this process goes as follows for each server that will be managed by MAAS:
+BSU's SOC environment consists of Dell PowerEdge servers (no iDRAC license), so set-up steps are mostly identical across servers.
 
 * Connect a display and keyboard (and mouse if preferred) to the server.
 * Power on the server and wait until the boot menu on the top of the screen is displayed - at this point press F10 (Life Cycle Manager) on the keyboard and wait for the screen to load.
 * Once in Life Cycle Manager we need to set up the following:
 
-### iDRAC +IPMI
-As mentioned above, we do not have an iDRAC license, so this step is especially unique for us.
-From the “Home” tab of Life Cycle Manager select “Configure server for remote access (iDRAC)”. The Home tab will look something like this depending on server generation.
+### RAID Controller
+For setting up the raid controller, network storage and local storage have different virtual disk layouts.
+- Local storage
+  - Local storage will need virtual disks created. The first virtual disk will be comprised of two drives, and will be the 
 ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/lifecycle%20controller.jpg?raw=true)
 
 
