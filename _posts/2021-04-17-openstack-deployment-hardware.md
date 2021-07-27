@@ -1,16 +1,10 @@
 ---
 layout: post
-title: "Proxmox Deployment - Hardware"
+title: "Openstack Deployment - Hardware"
 date: 2021-07-26 09:00:00 -0500
 categories: [Training-SOC, Proxmox]
-tags: [Proxmox, cloud, deployment, soc, guide, RAID]
+tags: [openstack, cloud, deployment, soc, guide, juju, maas]
 ---
-# Minimum Requirements
-
-- Intel EMT64 or AMD64.
-- Memory, minimum 2 GB for OS and Proxmox VE services. Plus designated memory for guests.
-- VM storage: Neither ZFS nor Ceph are compatible with a hardware RAID controller. Shared and distributed storage is also possible.
-
 # Configuration
 ## Dell PowerEdge Servers
 BSU's SOC environment consists of Dell PowerEdge servers (no iDRAC license), so set-up steps are mostly identical across servers.
