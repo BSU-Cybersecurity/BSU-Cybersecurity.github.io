@@ -80,5 +80,4 @@ First, navigate to _Datacenter -> Storage_ in the web interface. Then, click _ad
 
 Then click add and you should have networked storage available to all your nodes!
 
-
-# [Next Section: Operations]()
+Now that you have a datacenter set up with some clustered nodes, learn more about what you can do when them in our [proxmox-operations]() posts.
