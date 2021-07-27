@@ -55,11 +55,30 @@ The next step is to configure storage so that you have space for virtual machine
 
 There are many ways in which you can configure storage. Each have different use cases and should be cosidered carefully to suit your needs.
 
-* 
-
 ### Local
-> _*note: This is only necessary if you do not have networked storage._
 
+> _*note: Local storage is only necessary if you do not have networked storage._
+
+There are two main kinds of local storage that we use: __LVM volumes__ and __directories__. LVM volumes will allow us to run images in a raw format while directories will run them in a qcow2 format. It is important to take into consideration that only directories can store `.iso` images. If you are only using local storage and not networked storage then you will want at least one local disk to be a directory so that you can store `.iso`'s.
+
+To set up a local directory navigate to _pve# -> Disks -> Directory_ in the web interface and click `Create: Directory`. Select the disk you wish to use, select `ext4` for the filesystem, and name the directory.
+
+To set up a local LVM volume navigate to _pve# -> Disks -> LVM_ in the web interface and click `Create: Volume Group`. Select the disk you wish to use and name the volume.
+
+> "No Disks unused" error: If you have the correct number of drives installed to implement your desired local storage configuration and you get this error you may have to remove partitions from the disks you want to use. To do this navigate to _pve# -> Shell_ in the web interface. Enter `fdisk -l` to list disks and partitions on the machine. Find your target disk of the format `/dev/sdX` (X being some letter) and run `fdisk /dev/sdX`. __BE CAREFUL, FDISK IS POWERFUL__. Enter `d` to delete partitions on the selected disk. Enter the number of the partition you wish to delete based on their numbering format from the fdisk list (`/dev/sdX1` is partition 1). Once all partitions are deleted enter `w` to write the changes.
+
+### Networked
+Networked storage is very convenient and is ideally where you want to have the bulk of your storge capacity. It has the same functionality as local directory storage except it can be accessed by every node in the cluster.
+
+If you have a NAS with an NFS server (Like we set up [here]()) you can add it like this:
+
+First, navigate to _Datacenter -> Storage_ in the web interface. Then, click _add -> NFS_.
+* ID: a name for the storage
+* Server: the server IP address
+* Export: the NFS filesystem location on the server
+* Content: select all the types of content you plan to store
+
+Then click add and you should have networked storage available to all your nodes!
 
 
 # [Next Section: Operations]()
