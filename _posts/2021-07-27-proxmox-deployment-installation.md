@@ -70,7 +70,7 @@ To set up a local LVM volume navigate to _pve# -> Disks -> LVM_ in the web inter
 ### Networked
 Networked storage is very convenient and is ideally where you want to have the bulk of your storge capacity. It has the same functionality as local directory storage except it can be accessed by every node in the cluster.
 
-If you have a NAS with an NFS server (Like we set up [here]()) you can add it like this:
+If you have a NAS with an NFS server (Like we set up [here](https://bsu-cybersecurity.github.io/posts/nas-setup/)) you can add it like this:
 
 First, navigate to _Datacenter -> Storage_ in the web interface. Then, click _add -> NFS_.
 * ID: a name for the storage
@@ -80,4 +80,4 @@ First, navigate to _Datacenter -> Storage_ in the web interface. Then, click _ad
 
 Then click add and you should have networked storage available to all your nodes!
 
-Now that you have a datacenter set up with some clustered nodes, learn more about what you can do when them in our [proxmox-operations]() posts.
+Now that you have a datacenter set up with some clustered nodes, learn more about what you can do when them in our [proxmox-operations](https://bsu-cybersecurity.github.io/tags/proxmox-operations/) posts.
