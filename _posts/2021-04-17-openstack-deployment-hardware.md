@@ -2,7 +2,7 @@
 layout: post
 title: "Openstack Deployment - Hardware"
 date: 2021-07-26 09:00:00 -0500
-categories: [Training-SOC, Proxmox]
+categories: [Training-SOC, Openstack]
 tags: [openstack, cloud, deployment, soc, guide, juju, maas]
 ---
 # Configuration
