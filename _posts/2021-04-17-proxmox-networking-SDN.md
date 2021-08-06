@@ -27,12 +27,14 @@ tags: [proxmox, cloud, deployment, soc, guide, LAN, SDN, proxmox-networking]
       ```
  ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/proxmoxSDNInterface.jpg?raw=true)
 # VXLAN Zone
->These zones are used to detail the nodes that can cross communicate. For our purposes, we will allow all nodes to cross-communicate in our created zone
+>These zones are used to detail the nodes that can cross communicate. For our purposes, we will allow all nodes to cross-communicate in our created zone.
 >
 1. On the proxmox GUI, navigate to Datacenter->SDN->Zones
 2. Select "add vxlan" from the drop-down add tab at the top.
 3. Enter a name for the zone in the ID, the list of nodes that should be cross communicating in the "Peer Address List" an MTU of 4500, and the names of the nodes in "Nodes".
-![Desktop View](https://jaletzki.de/img/create-vm-w19-hdd.png)
+![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/proxmoxVXLanZone.png?raw=true)
+4. Navigate to Vnets tab, under Zones and select the create button above. Enter a name starting with "vmbr" ex: "vmbr5", choose a descriptive alias, select the zone previously created, and give the VNet a unique tag. Make sure to leave VLAN Aware unchecked.
+
 ![Desktop View](https://jaletzki.de/img/create-vm-w19-net.png)
 ![Desktop View](https://jaletzki.de/img/proxmox-enable-qemu-agent.png)
 3. Download the latest stable [virtio driver](https://github.com/virtio-win/virtio-win-pkg-scripts/blob/master/README.md)
