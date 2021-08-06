@@ -47,19 +47,7 @@ _If the message indicates an error, it could just be a graphical bug, still test
       ```console
         source /etc/network/interfaces.d/*
       ```
+     ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/networkbridgesettings.png?raw=true)
       
-![Desktop View](https://jaletzki.de/img/create-vm-w19-net.png)
-![Desktop View](https://jaletzki.de/img/proxmox-enable-qemu-agent.png)
-3. Download the latest stable [virtio driver](https://github.com/virtio-win/virtio-win-pkg-scripts/blob/master/README.md)
-4. Add a CD/DVD drive to the virtual machine with the virtio ISO
- ![Desktop View](https://jaletzki.de/img/proxmox-add-drive-virtio.png)  
-# Windows Configuration
-1. Navigate through the Windows install guide until prompted for a driver to install. When prompted, browse to D:\viostar\2k16\amd64\viostar.inf
-2. When the installation has finished, update drivers through the device manager. Also, update Windows by searching for Windows update in the Windows search bar.
-3. Run `C:\Windows\System32\Sysprep\sysprep.exe`
- ![Desktop View](https://jaletzki.de/img/sysprep.png)
- 4. Remove second CD Drive, reset first CD Drive to, "Do not use any media" and right click on VM and select, "Clone".
-- If desired, you can rename the hostname of the windows machine
-   - `Rename-Computer <hostname>`  
 
 # [Next Section: Proxmox Install](https://bsu-cybersecurity.github.io/posts/proxmox-deployment-installation/)
