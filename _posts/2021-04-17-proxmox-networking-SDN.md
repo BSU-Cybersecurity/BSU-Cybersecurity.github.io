@@ -25,10 +25,13 @@ tags: [proxmox, cloud, deployment, soc, guide, LAN, SDN, proxmox-networking]
       ```console
         /etc/network/interfaces
       ```
+ ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/proxmoxSDNInterface.jpg?raw=true)
 # VXLAN Zone
-
-
- ![Desktop View](https://jaletzki.de/img/create-vm-w19-os.png)
+>These zones are used to detail the nodes that can cross communicate. For our purposes, we will allow all nodes to cross-communicate in our created zone
+>
+1. On the proxmox GUI, navigate to Datacenter->SDN->Zones
+2. Select "add vxlan" from the drop-down add tab at the top.
+3. Enter a name for the zone in the ID, the list of nodes that should be cross communicating in the "Peer Address List" an MTU of 4500, and the names of the nodes in "Nodes".
 ![Desktop View](https://jaletzki.de/img/create-vm-w19-hdd.png)
 ![Desktop View](https://jaletzki.de/img/create-vm-w19-net.png)
 ![Desktop View](https://jaletzki.de/img/proxmox-enable-qemu-agent.png)
