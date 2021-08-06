@@ -42,8 +42,12 @@ _If the message indicates an error, it could just be a graphical bug, still test
 1. Create or edit an existing VM.
 2. Attatch a network device under the hardware of the VM.
 3. Select the name of the bridge that corresponds to the VNet that was just created.
-
-
+![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/vnetbridge.png?raw=true)
+4. If on Ubuntu Server, edit 
+      ```console
+        source /etc/network/interfaces.d/*
+      ```
+      
 ![Desktop View](https://jaletzki.de/img/create-vm-w19-net.png)
 ![Desktop View](https://jaletzki.de/img/proxmox-enable-qemu-agent.png)
 3. Download the latest stable [virtio driver](https://github.com/virtio-win/virtio-win-pkg-scripts/blob/master/README.md)
