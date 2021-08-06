@@ -1,16 +1,33 @@
 ---
 layout: post
-title: "Proxmox - Template Creation"
+title: "Proxmox - SDN"
 date: 2021-07-27 09:00:00 -0500
 categories: [Training-SOC, Proxmox]
-tags: [proxmox, cloud, deployment, soc, guide, templates, windows, proxmox-operations]
+tags: [proxmox, cloud, deployment, soc, guide, LAN, SDN, proxmox-networking]
 ---
-> In Proxmox templates are an easy way to instantiate mutliple virtual machines without having to reinstall the OS from scratch. Templates also allow for unique MAC addresses and SIDs.
+> In Proxmox cross node LAN networking can be accomplished through the use of software defined networking. In order to imitate seperate networks, while utilizing multiple nodes within these networks, software defined networking can be utilized. In this guide we will demonstrate cross-node vnet by creating a 10.0.2.0 network.
 >
 
-# Windows VM Initialization
-1. Download an [ISO image](https://www.microsoft.com/en-au/software-download/windows10) from microsoft
-2. Create a Virtual Machine
+# Software Defined Network Installation
+1. Install dependencies <b>on every node</b>
+   ```console
+     apt update
+     apt install libpve-network-perl ifupdown2
+   ```
+
+2. Edit configuration file <b>on every node</b>
+   
+    add 
+      ```console
+        source /etc/network/interfaces.d/*
+      ```
+      to the end of <b>every node's</b> 
+      ```console
+        /etc/network/interfaces
+      ```
+# VXLAN Zone
+
+
  ![Desktop View](https://jaletzki.de/img/create-vm-w19-os.png)
 ![Desktop View](https://jaletzki.de/img/create-vm-w19-hdd.png)
 ![Desktop View](https://jaletzki.de/img/create-vm-w19-net.png)
