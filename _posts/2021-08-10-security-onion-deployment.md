@@ -25,4 +25,11 @@ Next you will want to create a new VM with the _Create VM_ button. Ensure that y
 The rest of the VM creation is as follows:
 * Name the VM something meaningful
 * Select the Security Onion .iso from your chosen storage location
-* 
+* Keep system options default
+* Give it a disk of 1TB
+* 8 core cpu
+* 16GB of memory
+* Choose the bridge that is appropriate for your chosen network architecture. We're using a bridge (_vmbr7_) that corresponds to our "provider" virtual network.
+* Confirm the creation and boot the machine.
+
+## Manager Configuration
