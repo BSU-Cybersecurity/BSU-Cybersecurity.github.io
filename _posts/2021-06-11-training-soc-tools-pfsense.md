@@ -48,7 +48,14 @@ tags: [tools, pfsense, soc, client]
  > While PfSense has a package for exporting, the free version does not have an easy tool for importing client configurations.
  - Creating User CA
    - Navigate to /System/Certificate Manager/ CAs on the client PfSense router.
-   - 
+   ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/CACreation.png?raw=true)
+   _The Certificate Authority Data is in the file generated from the client-export package used on the server. Copy from `<ca>` to `</ca>`_.
+- Creating User Cert
+  - Navigate to /System/Certificate Manager/Certificates
+  ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/CERTCREATION.png?raw=true)
+  _The Certificate Data and Private key is found in the file generated from the client-export package. Copy the certificate data from `<cert> to </cert>` and the private key from `<key> to </key>`._
+- Creating Client
+  - Navigate to VPN/OpenVPN/Clients and click on <b> + Add</b>
 
    
 
