@@ -28,3 +28,17 @@ Here are some perks of proxmox we found:
 
 # Network Structure
 The easiest way to conceptualize the network of the virtual city is in 2 layers with the second inner layer containing 2 distinct types of networks. 
+
+## Outer Layer
+This first outer layer consists of the _192.168.0.0/16_ subnet that runs across a physical switch and gets routing from a physical PFSense router. This purpose of this network is to act as the internet for the Virtual City as well as provide management access of the Proxmox nodes to Virtual City admins. All Proxmox nodes have access to this network via their physical NICs and can pass access to the virtual machines that they host with their built-in vmbr0 bridges.
+
+## Inner Layer
+The inner layer consists of a multitude of virtual _10.X.X.X/X_ subnets for the client, provider, and attacker networks.
+
+### Type 1 Nets (vnets)
+Both provider and attacker networks utilize type 1 networks. These are vnets built using Proxmox's SDN functionality (which you can read about [here](https://bsu-cybersecurity.github.io/posts/proxmox-networking-SDN/)). These are the most versatile type of networks we can create as they can network VMs between different physical Proxmox nodes. For instance, you could have VMs hosted on three different proxmox nodes all on the same LAN. In our diagram these Type 2 nets are the vmbr5 & vmbr6 bridges.
+
+> *note: Every network device in proxmox is named as a bridge (vmbr#). This can get confusing as not all of these "bridges" are the same type of device. Some are traditional network bridges (such as the built in vmbr0 bridges present on every proxmox node that give access to Layer 1) while others might be vnets.
+
+### Type 2 Nets (Open vSwitches)
+Due to our usage of Security Onion all clients must use Type 2 networks. These are built using Open vSwitches. The reason for this is that Security Onion sensor nodes must get network traffic from a tap port on the network's switch. Unfortunately, Type 1 netowrks do not support this functionality. Another quirk that needs to be considered is that these Type 2 networks cannot talk directly cross node like SDN vnets. If a VM in a Type 2 net needs to talk with a network in another proxmox node both networks will need access to Layer 1 and talk across it.
