@@ -57,9 +57,32 @@ tags: [tools, pfsense, soc, client]
 - Creating Client
   - Navigate to VPN/OpenVPN/Clients and click on <b> + Add</b>
 
-   
+    ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/ClientGeneralInformation%20-%20Copy.png?raw=true)
+    _Change server address and server port - these are located in the client-export file if you don't remember._
+
+     ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/authcrypt1.png?raw=true)
+      _The username and password of the PfSense user created on the server_
+      ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/authcrypt2.png?raw=true)
+
+       ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/tunnelsettings.png?raw=true)
+       _Let the server handle the tunnel settings_
+       ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/advancedconfig.png?raw=true)
+      
+### Configuring Firewall for Admin/User Tunnels
+- Add tunnel interface
+  - Navigate to Interfaces/Interface Assignments
+    - Add the interface with the network port
+  - Navigate to Firewall/NAT/Outbound
+    - Select manual outbound for the mode
+    - Add a new mapping
+    
 
 
-## Configuring Firewall for Admin/User Tunnels
+
+
+
+
+
+
 
 
