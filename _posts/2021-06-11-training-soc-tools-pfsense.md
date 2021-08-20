@@ -75,7 +75,8 @@ tags: [tools, pfsense, soc, client]
   - Navigate to Firewall/NAT/Outbound
     - Select manual outbound for the mode
     - Add a new mapping
-    
+    ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/NAT.png?raw=true)
+   
 
 
 
