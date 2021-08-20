@@ -40,7 +40,15 @@ tags: [tools, pfsense, soc, client]
  ### Exporting a Client
  > The previously installed <b>client export package</b> will be used to generate a file containing the necissary information for a client to connect to the server.
  - Navigate to VPN/OpenVPN/Client Export
- - 
+ - Select Server and Client Connection Settings
+ ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/Client%20Connection.png?raw=true)
+ ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/clientdownload.png?raw=true)
+ _Choose the Inline Configurations/Most Clients option if connecting to a router or choose OS specific download for single user connections_
+ ### PfSense Client Import
+ > While PfSense has a package for exporting, the free version does not have an easy tool for importing client configurations.
+ - Creating User CA
+   - Navigate to /System/Certificate Manager/ CAs on the client PfSense router.
+   - 
 
    
 
