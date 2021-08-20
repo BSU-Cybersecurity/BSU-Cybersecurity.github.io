@@ -52,4 +52,21 @@ Once the system reboots you will be walked through the system configuration wiza
 * Select your management NIC. There should be only one option, the one we set to our provider network bridge (_vmbr7_)
 * Set a static IP
 * Enter an unused IP in your provider network followed by the CIDR mask. In our case our provider network has 254 useable addresses so this would look like _#.#.#.#/24_
-* 
+* Enter the IP address of the provider network router
+* Add two DNS server addresses to the front of this list (providerNetworkRouterIP, 1.1.1.1)
+* Leave default search domain
+* Continue
+* Choose direct internet connection
+* Choose a manual patch schedule
+* Keep default home networks
+* Install all components
+* Keep default docker IP range
+* Enter an email addres for an administrator account (*note: this does not have to be a real email, it will be used to log into the security onion web interface)
+* Set your admin password (*note: The first time using this account after setup there is a chance that the account will not authenticate properly. If that is the case you will simply have to create a new account with `sudo so-user-add someone@example.com`)
+* Choose IP for web interface access
+* Choose default NTP servers
+* Say yes to running so-allow
+* Designate an IP range from which analysts can access the Security Onion web interface. We chose our entire provider network (_#.#.#.0/24_)
+* Review all configurations and say yes to start the final install process
+* When complete restart the machine and you should be able to access the web interface from a machine sitting in whatever network range you designated access
+
