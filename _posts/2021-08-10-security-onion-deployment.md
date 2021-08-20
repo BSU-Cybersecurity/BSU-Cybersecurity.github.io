@@ -41,21 +41,21 @@ Eventually the installation will be complete and you will be prompted to reboot 
 
 Once the system reboots you will be walked through the system configuration wizard. This process is the most vital part of the initial setup and will involve some choices that will be very impractical to change later on. Here are the steps that we took:
 
+> IMPORTANT:
+> Somewhere in this process you will have been asked to create a password for a `soremote` user account. Make sure to save this password as it will be used when joining search and forward nodes to the manager.
+
 * Log in with the admin user we just created
-* Say yes
 * Install
 * Choose distributed architecture (*note: press space to choose an option in these type of list selection menus)
 * Choose manager
-* Agree to Elastic's terms
 * Set standard internet connection
 * Set machine hostname (__THIS CANNOT BE CHANGED LATER. MAKE SURE TO WRITE IT DOWN AS IT WILL BE USED IN THE SENSOR AND SEARCH NODE CONFIGURATION__)
 * Select your management NIC. There should be only one option, the one we set to our provider network bridge (_vmbr7_)
 * Set a static IP
-* Enter an unused IP in your provider network followed by the CIDR mask. In our case our provider network has 254 useable addresses so this would look like _#.#.#.#/24_
+* Enter an unused IP in your provider network followed by the CIDR mask. In our case our provider network has 254 useable addresses so this would look like `#.#.#.#/24`
 * Enter the IP address of the provider network router
-* Add two DNS server addresses to the front of this list (providerNetworkRouterIP, 1.1.1.1)
+* Add two DNS server addresses to the front of this list (`providerNetworkRouterIP, 1.1.1.1`)
 * Leave default search domain
-* Continue
 * Choose direct internet connection
 * Choose a manual patch schedule
 * Keep default home networks
@@ -66,7 +66,14 @@ Once the system reboots you will be walked through the system configuration wiza
 * Choose IP for web interface access
 * Choose default NTP servers
 * Say yes to running so-allow
-* Designate an IP range from which analysts can access the Security Onion web interface. We chose our entire provider network (_#.#.#.0/24_)
+* Designate an IP range from which analysts can access the Security Onion web interface. We chose our entire provider network (`#.#.#.0/24`)
 * Review all configurations and say yes to start the final install process
-* When complete restart the machine and you should be able to access the web interface from a machine sitting in whatever network range you designated access
+
+When complete restart the machine and you should be able to access the web interface from a machine sitting in whatever network range you designated access by browsing to the static ip you set for the manager node in your web browser. 
+
+## Deploying the Search Node
+The process for deploying the search node will be very similar to the manager. It will be sitting in the same network as your manager node and you will only have to make a few changes:
+
+* Once you select the distributed deployment model, instead of choosing manager choose search
+* 
 
