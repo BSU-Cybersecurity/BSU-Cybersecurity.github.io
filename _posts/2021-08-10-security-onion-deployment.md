@@ -35,3 +35,21 @@ The rest of the VM creation is as follows:
 * Confirm the creation and boot the machine.
 
 ## Manager Configuration
+On the initial boot you will be walked through a very basic install process. Make sure to choose the basic graphics mode for the installer (you can sometimes run into weird problems otherwise, this basic mode should always work). After that you will want to type yes to agree, create an admin user and password, and then let the system install.
+
+Eventually the installation will be complete and you will be prompted to reboot the system (note, this can take a fair ammount of time, Security Onion installs a lot of services).
+
+Once the system reboots you will be walked through the system configuration wizard. This process is the most vital part of the initial setup and will involve some choices that will be very impractical to change later on. Here are the steps that we took:
+
+* Log in with the admin user we just created
+* Say yes
+* Install
+* Choose distributed architecture (*note: press space to choose an option in these type of list selection menus)
+* Choose manager
+* Agree to Elastic's terms
+* Set standard internet connection
+* Set machine hostname (__THIS CANNOT BE CHANGED LATER. MAKE SURE TO WRITE IT DOWN AS IT WILL BE USED IN THE SENSOR AND SEARCH NODE CONFIGURATION__)
+* Select your management NIC. There should be only one option, the one we set to our provider network bridge (_vmbr7_)
+* Set a static IP
+* Enter an unused IP in your provider network followed by the CIDR mask. In our case our provider network has 254 useable addresses so this would look like _#.#.#.#/24_
+* 
