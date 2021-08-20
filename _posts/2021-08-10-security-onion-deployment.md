@@ -88,6 +88,9 @@ If you're still in the planning phase of your architecture you will need to make
 
 You will install and configure the sensor mostly the same way as you did with the search node except for these changes:
 
-* When setting up the machine make sure that it has two NICs (one for its normal management interface on the client's network and another that will be attached to the tap). To attach the tap to the second interface in proxmox enter `ovs-vsctl -- --id=@p get port tapXiY -- --id=@m create mirror name=span1 select-all=true output-port=@p -- set bridge vmbrZ mirrors=@m` where `X` is the number of the machine in proxmox, `Y` is the number of the interface you are connecting the tap to, and `Z` is the number of the Open vSwitch bridge. 
-
+* When setting up the machine make sure that it has two NICs (one for its normal management interface on the client's network and another that will be attached to the tap). To attach the tap to the second interface in proxmox enter `ovs-vsctl -- --id=@p get port tapXiY -- --id=@m create mirror name=span1 select-all=true output-port=@p -- set bridge vmbrZ mirrors=@m` where `X` is the number of the machine in proxmox, `Y` is the number of the interface you are connecting the tap to, and `Z` is the number of the Open vSwitch bridge.
+>IMPORTANT: Make sure that the management NIC has a direct way to communicate with the ip address assigned to the manager node's management NIC. We were able to achieve this using a VPN from the client's router to the provider's router. You can also do with using another router on the client's LAN serving as a VPN appliance (*note that this will necessitate 3 NICs on the sensor instead of 2). You can read more about our network design [here]()
+* After choosing the management interface make sure that you choose the second interface as the tap interface
+* Once you select the distributed deployment model, instead of choosing manager choose sensor
+* Join the sensor node to the manager using the manager's hostname, static ip, and when prompted enter the password for the soremote account
 
