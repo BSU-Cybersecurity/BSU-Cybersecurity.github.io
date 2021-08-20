@@ -41,4 +41,13 @@ Both provider and attacker networks utilize type 1 networks. These are vnets bui
 > *note: Every network device in proxmox is named as a bridge (vmbr#). This can get confusing as not all of these "bridges" are the same type of device. Some are traditional network bridges (such as the built in vmbr0 bridges present on every proxmox node that give access to Layer 1) while others might be vnets.
 
 ### Type 2 Nets (Open vSwitches)
-Due to our usage of Security Onion all clients must use Type 2 networks. These are built using Open vSwitches. The reason for this is that Security Onion sensor nodes must get network traffic from a tap port on the network's switch. Unfortunately, Type 1 netowrks do not support this functionality. Another quirk that needs to be considered is that these Type 2 networks cannot talk directly cross node like SDN vnets. If a VM in a Type 2 net needs to talk with a network in another proxmox node both networks will need access to Layer 1 and talk across it.
+Due to our usage of Security Onion all clients must use Type 2 networks. These are built using Open vSwitches. The reason for this is that Security Onion sensor nodes must get network traffic from a tap port on the network's switch. Unfortunately, Type 1 netowrks do not support this functionality. Another quirk that needs to be considered is that these Type 2 networks cannot talk directly cross node like SDN vnets. If a VM in a Type 2 net needs to talk with a network in another proxmox node both networks will need access to Layer 1 and talk across it. The Open vSwitch in our diagram is vmbr7.
+
+# Service Communication
+Due to the nuances of our multiple network types and the way the services we use want to talk with each other we had to go through some serious trial and error before we found a setup that worked.
+
+We're using Security Onion (SO) as our primary security service platform and to replicate how a real MSSP would set up its production environment we went with a distributed deployment. This means that there are some components of SO that are hosted in the provider network (manager, search) and one that is hosted on the client's network (sensor). The sensor must be able to shuttle client network and host data back to the manager on the provider network.
+
+![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/vpnDiagram.png?raw=true)
+
+To implement this functionality we tried a few different configurations but eventually got it to work by creating an OpenVPN server on the provider network's router and an OpenVPN client on the client network's router. The client router's LAN interface is connected to vmbr7 (Type 2, Open vSwitch) and its WAN interface to vmbr0 (Layer 1). The provider router's LAN interface is connected to vmbr5 (Type 1, vnet) and its WAN interface is connected to vmbr0 (Layer 1).
