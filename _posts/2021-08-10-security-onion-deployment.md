@@ -69,11 +69,15 @@ Once the system reboots you will be walked through the system configuration wiza
 * Designate an IP range from which analysts can access the Security Onion web interface. We chose our entire provider network (`#.#.#.0/24`)
 * Review all configurations and say yes to start the final install process
 
-When complete restart the machine and you should be able to access the web interface from a machine sitting in whatever network range you designated access by browsing to the static ip you set for the manager node in your web browser. 
+When complete, restart the machine and log in with the admin account you created on the initial boot. Use `sudo so-status` to check on the status of all the services as they start up (this can take a few minutes). Once all services are running you should be able to access the web interface from a machine sitting in whatever network range you designated access by browsing to the static ip you set for the manager node in your web browser.  
 
 ## Deploying the Search Node
 The process for deploying the search node will be very similar to the manager. It will be sitting in the same network as your manager node and you will only have to make a few changes:
 
+>IMPORTANT: Make sure to chose a host name that represents that this is the search node
 * Once you select the distributed deployment model, instead of choosing manager choose search
-* 
+* Join the search node to the manager using the manager's hostname, static ip, and when prompted enter the password for the soremote account
+
+Once the install process is complete and the machine reboots log in with the admin account and check `sudo so-status`. Once all the services are running check the Security onion web interface. In the left bar there should be a page called _Grid_ that you can browse to. If you can see the new search node in the grid you have successfully deployed this piece of security onion! 
+> Make sure to scroll to the right in the grid page to see if there are any fault alerts. If there are, wait a few minutes to see if they clear up. These can sometimes happen as the node is booting up.
 
