@@ -60,7 +60,6 @@ tags: [tools, pfsense, soc, client]
      ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/authcrypt1.png?raw=true)
       _The username and password of the PfSense user created on the server_
       ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/authcrypt2.png?raw=true)
-
        ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/tunnelsettings.png?raw=true)
        _Let the server handle the tunnel settings_
        ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/advancedconfig.png?raw=true)
