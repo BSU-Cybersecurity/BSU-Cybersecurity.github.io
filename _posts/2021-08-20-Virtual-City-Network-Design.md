@@ -51,3 +51,7 @@ We're using Security Onion (SO) as our primary security service platform and to 
 ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/vpnDiagram.png?raw=true)
 
 To implement this functionality we tried a few different configurations but eventually got it to work by creating an OpenVPN server on the provider network's router and an OpenVPN client on the client network's router. The client router's LAN interface is connected to vmbr7 (Type 2, Open vSwitch) and its WAN interface to vmbr0 (Layer 1). The provider router's LAN interface is connected to vmbr5 (Type 1, vnet) and its WAN interface is connected to vmbr0 (Layer 1).
+
+> *note: In this configuration you should set up a new VPN server for every client. If you do not you may run into IP conflicts should two clients use the same subnets. 
+
+# [Next Section: Tools - PfSense](https://bsu-cybersecurity.github.io/posts/training-soc-tools-pfsense/)
