@@ -81,3 +81,13 @@ The process for deploying the search node will be very similar to the manager. I
 Once the install process is complete and the machine reboots log in with the admin account and check `sudo so-status`. Once all the services are running check the Security onion web interface. In the left bar there should be a page called _Grid_ that you can browse to. If you can see the new search node in the grid you have successfully deployed this piece of security onion! 
 > Make sure to scroll to the right in the grid page to see if there are any fault alerts. If there are, wait a few minutes to see if they clear up. These can sometimes happen as the node is booting up.
 
+## Deploying the Forward Node
+The forward node (or sensor) will be slightly different than the others as it will not reside in your service provider network but rather in the clients network that the provider is providing security monitoring service too. In our case that network is a separate virtual network in our proxmox virtual environment.
+
+If you're still in the planning phase of your architecture you will need to make sure that however you set up your client network you have the ability to mirror network traffic to the sensor node which will be deployed there. This is traditionally done by creating a mirror port (sometimes called a span port or tap) on a physical switch. In our case, since we're using a virtual network, we specifically chose to use an [Open vSwitch](https://www.openvswitch.org/) device as it allows for the creation of taps. 
+
+You will install and configure the sensor mostly the same way as you did with the search node except for these changes:
+
+* When setting up the machine make sure that it has two NICs (one for its normal management interface on the client's network and another that will be attached to the tap). To attach the tap to the second interface in proxmox enter `ovs-vsctl -- --id=@p get port tapXiY -- --id=@m create mirror name=span1 select-all=true output-port=@p -- set bridge vmbrZ mirrors=@m` where `X` is the number of the machine in proxmox, `Y` is the number of the interface you are connecting the tap to, and `Z` is the number of the Open vSwitch bridge. 
+
+
