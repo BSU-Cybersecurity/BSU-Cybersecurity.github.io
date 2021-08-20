@@ -94,3 +94,8 @@ You will install and configure the sensor mostly the same way as you did with th
 * Once you select the distributed deployment model, instead of choosing manager choose sensor
 * Join the sensor node to the manager using the manager's hostname, static ip, and when prompted enter the password for the soremote account
 
+Once the machine reboots and you check `sudo so-status` for all services running you should be able to see your new sensor node in the Security Onion grid.
+
+Congratulations, you now have a working Secutity Onion destributed deployment! Your final steps will be to allow log traffic from your client network (and any VPN tunnels the client is talking to the manager over) using `sudo so-allow` on the manager node. You should now be able to see all network traffic over the client's switch that you have the tap on and can move on to installing agents on any client machines you want to gather host data from.
+
+# [Next Section: Windows Host Agent Installations]()
