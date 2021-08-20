@@ -9,7 +9,7 @@ tags: [tools, pfsense, soc, client]
 ## OpenVPN Tunnel Guide
  
   > This section details how to create a tunnel between networks. For that purpose, a server, client and vpn user will be configured on the PfSense GUI. This setup utilizes at least two PfSense routers, one as client, with the other as a server
-  ### OpenVPN Server Setup
+### OpenVPN Server Setup
   - Client Export Package _(Easily Generates User Config Files)_
     - On PfSense GUI Navigate to System/Package Manager/Available Packages and search for openvpn-client-export then install.
   - Server Creation Wizard
@@ -36,14 +36,14 @@ tags: [tools, pfsense, soc, client]
   - Navigate to System/User Manager and select <b>+Add</b> to begin the process of creating a new user
   - Fill out a Username and Password and check <b>Click to create a user certificate</b>. 
   ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/OpenVPN%20User.png?raw=true)
- ### Exporting a Client
+### Exporting a Client
  > The previously installed <b>client export package</b> will be used to generate a file containing the necissary information for a client to connect to the server.
  - Navigate to VPN/OpenVPN/Client Export
  - Select Server and Client Connection Settings
  ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/Client%20Connection.png?raw=true)
  ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/clientdownload.png?raw=true)
  _Choose the Inline Configurations/Most Clients option if connecting to a router or choose OS specific download for single user connections_
- ### PfSense Client Import
+### PfSense Client Import
  > While PfSense has a package for exporting, the free version does not have an easy tool for importing client configurations.
  - Creating User CA
    - Navigate to /System/Certificate Manager/ CAs on the client PfSense router.
