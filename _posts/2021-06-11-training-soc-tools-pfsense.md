@@ -7,9 +7,8 @@ tags: [tools, pfsense, soc, client]
 ---
 
 ## OpenVPN Tunnel Guide
-  >
-    This section details how to create a tunnel between networks. For that purpose, a server, client and vpn user will be configured on the PfSense GUI. This setup utilizes at least two PfSense routers, one as client, with the other as a server
-  >
+ 
+  > This section details how to create a tunnel between networks. For that purpose, a server, client and vpn user will be configured on the PfSense GUI. This setup utilizes at least two PfSense routers, one as client, with the other as a server
   ### OpenVPN Server Setup
   - Client Export Package _(Easily Generates User Config Files)_
     - On PfSense GUI Navigate to System/Package Manager/Available Packages and search for openvpn-client-export then install.
@@ -55,11 +54,9 @@ tags: [tools, pfsense, soc, client]
   ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/CERTCREATION.png?raw=true)
   _The Certificate Data and Private key is found in the file generated from the client-export package. Copy the certificate data from `<cert> to </cert>` and the private key from `<key> to </key>`._
 - Creating Client
-  - Navigate to VPN/OpenVPN/Clients and click on <b> + Add</b>
-
+  - Navigate to VPN/OpenVPN/Clients and click on <b>+ Add</b>
     ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/ClientGeneralInformation%20-%20Copy.png?raw=true)
     _Change server address and server port - these are located in the client-export file if you don't remember._
-
      ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/authcrypt1.png?raw=true)
       _The username and password of the PfSense user created on the server_
       ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/authcrypt2.png?raw=true)
