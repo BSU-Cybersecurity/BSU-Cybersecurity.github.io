@@ -6,74 +6,58 @@ categories: [Training-SOC, SecurityOnion]
 tags: [SecurityOnion, Windows, Agent]
 ---
 
-## OpenVPN Tunnel Guide
+## Wazuh Installation and Configuration
  
-  > This section details how to create a tunnel between networks. For that purpose, a server, client and vpn user will be configured on the PfSense GUI. This setup utilizes at least two PfSense routers, one as client, with the other as a server
-### OpenVPN Server Setup
-  - Client Export Package _(Easily Generates User Config Files)_
-    - On PfSense GUI Navigate to System/Package Manager/Available Packages and search for openvpn-client-export then install.
-  - Server Creation Wizard
-    - Navigate to VPN/OpenVPN/Wizards
-    - Select <b>Local User Access</b>
-    - Create a new CA ![Desktop View](https://www.ceos3c.com/wp-content/uploads/2021/05/openvpn-on-pfsense-000211.jpg)
-    - Create a new Server Certificate
-    ![Desktop View](https://www.ceos3c.com/wp-content/uploads/2021/05/openvpn-on-pfsense-000212.jpg?ezimgfmt=ng:webp/ngcb48)
-    - General Server Information
-     ![Desktop View](https://www.ceos3c.com/wp-content/uploads/2021/05/openvpn-on-pfsense-000213.jpg?ezimgfmt=ng:webp/ngcb48)
-     _Make certain the server's listening port is not in use_
-     - Cryptography Settings
-    ![Desktop View](https://www.ceos3c.com/wp-content/uploads/2021/05/openvpn-on-pfsense-000214.jpg?ezimgfmt=ng:webp/ngcb48)
-    - Tunnel Settings
-    ![Desktop View](https://www.ceos3c.com/wp-content/uploads/2021/05/openvpn-on-pfsense-000215.jpg?ezimgfmt=ng:webp/ngcb48)
-    _The tunnel network address must not be in use, the local network will specify the LAN communication for VPN clients on this server_
-    - Client and Advanced Settings
-    ![Desktop View]( https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/Pfsense%20Client%20Settings.png?raw=true)
-    ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/PfSense%20Advanced%20Config.png?raw=true)
+  > Wazuh is an EDR (endpoint detection and response) system used to monitor and respond to threats on a host machine. Wazuh has two core components - a server and an agent. In a Security Onion distributed deployment, the server for Wazuh exists on the sensor node, while the agent exists on the host. This guide will navigate establishing the Wazuh agent's communication from a Windows host to the sensor node.
+- On the manager node, use 
+  ```console
+  sudo so-allow
+  ```
+  to enable contact through Security Onion's firewall to the Wazuh endpoint
+- From the Security Onion Console, navigate to the 'Downloads' section from the sidebar.
+- Select the ossec-agent, download and transfer the downloaded installer to your Window's host machine.
+- Access the Wazuh manager on the Sensor Node through the docker containing using
+  - ```console
+    $ sudo so-wazuh-agent-manage
+    ```
+  - Type `a` in the selection interface to add the windows host via I.P address to the manager.
+  - Type `e` and select the newly added host machine to extract a key for that host. Copy the displayed key for transfer to the host machine.
+  - Open the Wazuh agent manager on the Windows host machine and enter the I.P adress of the sensor as well as the previously extracted key.
+  - Restart the agent and refresh the window
     
-### Adding a User to PfSense
->In order to access the PfSense tunnel, creating a user with authentication information is necissary.
-- Create a VPN User
-  - Navigate to System/User Manager and select <b>+Add</b> to begin the process of creating a new user
-  - Fill out a Username and Password and check <b>Click to create a user certificate</b>. 
-  ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/OpenVPN%20User.png?raw=true)
-### Exporting a Client
- > The previously installed <b>client export package</b> will be used to generate a file containing the necissary information for a client to connect to the server.
- - Navigate to VPN/OpenVPN/Client Export
- - Select Server and Client Connection Settings
- ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/Client%20Connection.png?raw=true)
- ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/clientdownload.png?raw=true)
- _Choose the Inline Configurations/Most Clients option if connecting to a router or choose OS specific download for single user connections_
-### PfSense Client Import
- > While PfSense has a package for exporting, the free version does not have an easy tool for importing client configurations.
- - Creating User CA
-   - Navigate to /System/Certificate Manager/ CAs on the client PfSense router.
-   ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/CACreation.png?raw=true)
-   _The Certificate Authority Data is in the file generated from the client-export package used on the server. Copy from `<ca>` to `</ca>`_.
-- Creating User Cert
-  - Navigate to /System/Certificate Manager/Certificates
-  ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/CERTCREATION.png?raw=true)
-  _The Certificate Data and Private key is found in the file generated from the client-export package. Copy the certificate data from `<cert> to </cert>` and the private key from `<key> to </key>`._
-- Creating Client
-  - Navigate to VPN/OpenVPN/Clients and click on <b>+ Add</b>
-    ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/ClientGeneralInformation%20-%20Copy.png?raw=true)
-    _Change server address and server port - these are located in the client-export file if you don't remember._
-     ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/authcrypt1.png?raw=true)
-      _The username and password of the PfSense user created on the server_
-      ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/authcrypt2.png?raw=true)
-       ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/tunnelsettings.png?raw=true)
-       _Let the server handle the tunnel settings_
-       ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/advancedconfig.png?raw=true)
-      
-### Configuring Firewall for Admin/User Tunnels
-- Add tunnel interface
-  - Navigate to Interfaces/Interface Assignments
-    - Add the interface with the network port
-  - Navigate to Firewall/NAT/Outbound
-    - Select manual outbound for the mode
-    - Add a new mapping
-    ![Desktop View](https://github.com/BSU-Cybersecurity/BSU-Cybersecurity.github.io/blob/main/images/NAT.png?raw=true)
-   
+## OSquery Installation and Configuration
 
+> OSQuery allows for low-level querying of an operating system by representing the system as a relational database.
+
+_Security Onion leverages fleet to manage OSQuery. Fleet can be found in the Security Onion Console's side-panel and will list host devices OSQuery has been installed on_
+- On the manager node, run
+  ```console
+  $ sudo so-allow
+  ```
+  to enable the host agent to connect on port 8090
+- Download the OSQuery agent from the Security Onion Console's 'Downloads' tab and transfer the executable to the Windows host machine and run the installer
+- Check the installation by navigating to Fleet. The hostname of the added Windows machine should appear in the listed fleet hosts.
+
+_To change the hostname on a Windows computer_
+ 1. Open <b> Settings > System > About </b>
+ 2. Select 'Rename PC'
+ 3. Choose the hostname
+ 4. Restart Windows
+
+## Winlogbeat Installation and Configuration
+
+> Winlogbeat is a tool utilized for shipping Windows event logs to Elasticsearch
+
+- Download Winlogbeat zip file from Security Onion Console's 'Downloads' section and transfer the file to the Windows host.
+- Extract the Winlogbeat zip file.
+- Edit `winlogbeat.yml` to use Logstash.
+  - Comment out the lines related to direct output for Elasticsearch
+  - Uncomment the lines for Logstash output and specify the manager node's I.P address
+- Open PowerShell with <b>Administrator access</b>
+- Run 
+  ```console
+  winlogbeat.exe -c winlogbeat.yml
+  ``` 
 
 
 
