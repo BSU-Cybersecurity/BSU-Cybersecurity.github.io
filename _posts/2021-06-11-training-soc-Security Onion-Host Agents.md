@@ -1,14 +1,17 @@
 ---
 layout: post
-title: "Security Onion - Windows Host Agents"
+title: "Security Onion - Host Agents"
 date: 2021-08-11 09:00:00 -0500
 categories: [Training-SOC, SecurityOnion]
-tags: [SecurityOnion, Windows, Agent]
+tags: [SecurityOnion, Windows, Linux, Agent]
 ---
 
-## Wazuh Installation and Configuration
+
  
   > Wazuh is an EDR (endpoint detection and response) system used to monitor and respond to threats on a host machine. Wazuh has two core components - a server and an agent. In a Security Onion distributed deployment, the server for Wazuh exists on the sensor node, while the agent exists on the host. This guide will navigate establishing the Wazuh agent's communication from a Windows host to the sensor node.
+
+  ## Windows Hosts
+  ### Wazuh Installation and Configuration
 - On the manager node, use 
   ```console
   sudo so-allow
@@ -25,7 +28,7 @@ tags: [SecurityOnion, Windows, Agent]
   - Open the Wazuh agent manager on the Windows host machine and enter the I.P adress of the sensor as well as the previously extracted key.
   - Restart the agent and refresh the window
     
-## OSquery Installation and Configuration
+### OSquery Installation and Configuration
 
 > OSQuery allows for low-level querying of an operating system by representing the system as a relational database.
 
@@ -44,7 +47,7 @@ _To change the hostname on a Windows computer_
  3. Choose the hostname
  4. Restart Windows
 
-## Winlogbeat Installation and Configuration
+### Winlogbeat Installation and Configuration
 
 > Winlogbeat is a tool utilized for shipping Windows event logs to Elasticsearch
 
@@ -59,7 +62,7 @@ _To change the hostname on a Windows computer_
   winlogbeat.exe -c winlogbeat.yml
   ``` 
 
-
+## Linux Host Agents
 
 
 
