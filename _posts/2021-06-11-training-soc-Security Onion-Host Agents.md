@@ -11,7 +11,9 @@ tags: [SecurityOnion, Windows, Linux, Agent]
   > Wazuh is an EDR (endpoint detection and response) system used to monitor and respond to threats on a host machine. Wazuh has two core components - a server and an agent. In a Security Onion distributed deployment, the server for Wazuh exists on the sensor node, while the agent exists on the host. This guide will navigate establishing the Wazuh agent's communication from a Windows host to the sensor node.
 
   ## Windows Hosts
+
   ### Wazuh Installation and Configuration
+  
 - On the manager node, use 
   ```console
   sudo so-allow
